@@ -47,8 +47,7 @@ public class Evento {
     //Constrluctor que recibe parametros
     public Evento(int id_usuario,String clave,String nombre_completo,String usuario,String tipo_usuario,String correo,String telefono,String contraseña){
         
-        this.id_usuario=id_usuario;
-        this.clave=clave;
+        this.id_evento=id_usuario;
         this.nombre_completo=nombre_completo;
         this.usuario=usuario;
         this.tipo_usuario=tipo_usuario;
