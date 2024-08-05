@@ -124,7 +124,7 @@ public class Organizador {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        query = "INSERT INTO registro_organizador (nombre,puesto,clave,correo, telefono) "
+        query = "INSERT INTO organizador (nombre,puesto,clave,correo, telefono) "
                 + "VALUES ('"+getNombre()+"', '"+getPuesto()+"', '"+ getClave()+"', '"+getCorreo()+"', '"+getTelefono()+"');";
         
         //EJECUTAR LA CONSULTA

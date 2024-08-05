@@ -4,7 +4,10 @@
  */
 package fay_qr;
 
+import clases.Organizador;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 /**
  *
@@ -23,11 +26,9 @@ public class frmOrganizador extends javax.swing.JFrame {
         
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
-        
-        
-        
     }
 
+    Organizador st=new Organizador();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +44,6 @@ public class frmOrganizador extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtclave = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbotipo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txttelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -52,6 +52,7 @@ public class frmOrganizador extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        txtpuesto = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         miRegistrarAlumno = new javax.swing.JMenuItem();
@@ -95,10 +96,6 @@ public class frmOrganizador extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(28, 21, 20));
         jLabel5.setText("Tipo usuario:");
-
-        cbotipo.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        cbotipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Super Administrador", "Administrador" }));
-        cbotipo.setSelectedIndex(-1);
 
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(28, 21, 20));
@@ -170,6 +167,9 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addContainerGap(269, Short.MAX_VALUE))
         );
 
+        txtpuesto.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
+        txtpuesto.setForeground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
@@ -183,28 +183,25 @@ public class frmOrganizador extends javax.swing.JFrame {
                         .addComponent(txtclave)
                         .addGap(472, 472, 472))
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
-                                        .addGap(108, 108, 108)
-                                        .addComponent(txtcorreo))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
                                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel5))
-                                .addGap(26, 26, 26)
-                                .addComponent(cbotipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txttelefono)))
-                        .addGap(102, 102, 102)))
+                                .addGap(24, 24, 24)
+                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                        .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txttelefono))
+                                    .addComponent(txtcorreo))))
+                        .addGap(0, 100, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -222,9 +219,9 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cbotipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -417,16 +414,16 @@ public class frmOrganizador extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        /*
-        user=new Usuario(0,txtnombre.getText(),cbotipo.getSelectedItem().toString(),txttelefono.getText(),txtcorreo.getText(),cboestatus.getSelectedItem().toString(),foto);
+        
+        st = new Organizador(0,txtnombre.getText(),txtpuesto.getText(),txtclave.getText(),txtcorreo.getText(),txttelefono.getText());
+        
         try {
-            user.insertarUsuario();
-            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            st.insertarOrganizador();
+            JOptionPane.showMessageDialog(null, "El registro se ha organizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
-            //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -476,7 +473,6 @@ public class frmOrganizador extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JComboBox<String> cbotipo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -502,6 +498,7 @@ public class frmOrganizador extends javax.swing.JFrame {
     private javax.swing.JTextField txtclave;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField txtpuesto;
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 }
