@@ -58,12 +58,8 @@ public class Evento {
     }
    
     //TAREA HACER SETs/GETs
-    public void setIdUsuario(int id_usuario){
-           this.id_usuario=id_usuario;
-    }
-    
-    public void setClave(String clave){
-        this.clave=clave;
+    public void setIdEvnto(int id_usuario){
+           this.id_evento=id_usuario;
     }
    
     public void setNombreCompleto(String nombre_completo){
@@ -91,13 +87,10 @@ public class Evento {
     }
     
     
-    public int getIdUsuario(){
-        return this.id_usuario;
+    public int getIdEvento(){
+        return this.id_evento;
     }
-    
-    public String getClave(){
-        return this.clave;
-    }
+   
    
     public String getNombreCompleto(){
         return this.nombre_completo;
@@ -139,7 +132,7 @@ public class Evento {
         Statement sql=conBD.smtSQL();
        
         query = "INSERT INTO registro_usuario (clave, usuario, nombre_completo, tipo_usuario, correo, telefono, contraseña) "
-             + "VALUES ('"+getClave()+"', '"+getUsuario()+"', '"+ getNombreCompleto()+"', '"+ getTipoUsuario()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getContraseña()+"');";
+             + "VALUES ('"+(getIdEvento())+"', '"+getUsuario()+"', '"+ getNombreCompleto()+"', '"+ getTipoUsuario()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getContraseña()+"');";
        
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
@@ -186,13 +179,13 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         query="UPDATE registro_usuario\n" +
-                " clave='"+getClave()+"'," +
+                " clave='"+getIdEvento()+"'," +
                 " SET nombre_completo='"+getNombreCompleto()+"'," +
                 " tipo_usuario='"+getTipoUsuario()+"'," +
                 " telefono='"+getTelefono()+"'," +
                 " correo='"+getCorreo()+"'," +
                 " contrseña='"+getContraseña()+"'," +
-                " WHERE id_usuario="+getIdUsuario()+";";
+                " WHERE id_evento="+getIdEvento()+";";
        
          try{
             sql.execute(query);
