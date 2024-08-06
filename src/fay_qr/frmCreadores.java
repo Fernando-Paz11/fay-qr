@@ -48,19 +48,12 @@ public class frmCreadores extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
-        miRegistrarAlumno = new javax.swing.JMenuItem();
         mnEvento = new javax.swing.JMenu();
-        miRegistrarEvento = new javax.swing.JMenuItem();
         mnAsistencias = new javax.swing.JMenu();
-        miVer = new javax.swing.JMenuItem();
         mnOrganizador = new javax.swing.JMenu();
-        miRegistrarOrg = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         mnAcercade = new javax.swing.JMenu();
-        mnItemCreador = new javax.swing.JMenuItem();
         mnSalir = new javax.swing.JMenu();
-        mnVolverL = new javax.swing.JMenuItem();
-        mnCerrar = new javax.swing.JMenuItem();
 
         jLabel4.setFont(new java.awt.Font("Berlin Sans FB", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
@@ -175,48 +168,36 @@ public class frmCreadores extends javax.swing.JFrame {
         mnAlumno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mnAlumno.setMinimumSize(new java.awt.Dimension(120, 30));
         mnAlumno.setPreferredSize(new java.awt.Dimension(75, 27));
+        mnAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnAlumnoMouseClicked(evt);
+            }
+        });
         mnAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnAlumnoActionPerformed(evt);
             }
         });
-
-        miRegistrarAlumno.setText("Registrar");
-        miRegistrarAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRegistrarAlumnoActionPerformed(evt);
-            }
-        });
-        mnAlumno.add(miRegistrarAlumno);
-
         jMenuBar1.add(mnAlumno);
 
         mnEvento.setText("Evento");
         mnEvento.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
         mnEvento.setMinimumSize(new java.awt.Dimension(120, 30));
-
-        miRegistrarEvento.setText("Registrar");
-        miRegistrarEvento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRegistrarEventoActionPerformed(evt);
+        mnEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnEventoMouseClicked(evt);
             }
         });
-        mnEvento.add(miRegistrarEvento);
-
         jMenuBar1.add(mnEvento);
 
         mnAsistencias.setText("Asistencias");
         mnAsistencias.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
         mnAsistencias.setMinimumSize(new java.awt.Dimension(120, 30));
-
-        miVer.setText("Ver");
-        miVer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miVerActionPerformed(evt);
+        mnAsistencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnAsistenciasMouseClicked(evt);
             }
         });
-        mnAsistencias.add(miVer);
-
         jMenuBar1.add(mnAsistencias);
 
         mnOrganizador.setText("Organizador");
@@ -224,19 +205,20 @@ public class frmCreadores extends javax.swing.JFrame {
         mnOrganizador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mnOrganizador.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mnOrganizador.setPreferredSize(new java.awt.Dimension(120, 30));
-
-        miRegistrarOrg.setText("Registrar");
-        miRegistrarOrg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miRegistrarOrgActionPerformed(evt);
+        mnOrganizador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnOrganizadorMouseClicked(evt);
             }
         });
-        mnOrganizador.add(miRegistrarOrg);
-
         jMenuBar1.add(mnOrganizador);
 
         jMenu6.setText("|                                                                                                                          |");
         jMenu6.setEnabled(false);
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu6);
 
         mnAcercade.setText("Acerca de ...");
@@ -244,15 +226,6 @@ public class frmCreadores extends javax.swing.JFrame {
         mnAcercade.setHideActionText(true);
         mnAcercade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         mnAcercade.setMinimumSize(new java.awt.Dimension(120, 30));
-
-        mnItemCreador.setText("Creadores");
-        mnItemCreador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnItemCreadorActionPerformed(evt);
-            }
-        });
-        mnAcercade.add(mnItemCreador);
-
         jMenuBar1.add(mnAcercade);
 
         mnSalir.setText("Salir");
@@ -261,23 +234,11 @@ public class frmCreadores extends javax.swing.JFrame {
         mnSalir.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         mnSalir.setMinimumSize(new java.awt.Dimension(120, 30));
         mnSalir.setPreferredSize(new java.awt.Dimension(50, 50));
-
-        mnVolverL.setText("Cerrar Sesión");
-        mnVolverL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnVolverLActionPerformed(evt);
+        mnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnSalirMouseClicked(evt);
             }
         });
-        mnSalir.add(mnVolverL);
-
-        mnCerrar.setText("Cerrar");
-        mnCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnCerrarActionPerformed(evt);
-            }
-        });
-        mnSalir.add(mnCerrar);
-
         jMenuBar1.add(mnSalir);
 
         setJMenuBar(jMenuBar1);
@@ -285,56 +246,52 @@ public class frmCreadores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miRegistrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarAlumnoActionPerformed
-        // TODO add your handling code here:
-        frmAlumno a =new  frmAlumno();
-        a.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_miRegistrarAlumnoActionPerformed
-
     private void mnAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAlumnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnAlumnoActionPerformed
 
-    private void miRegistrarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarEventoActionPerformed
-        // TODO add your handling code here:
-        frmEvento re =new  frmEvento();
-        re.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_miRegistrarEventoActionPerformed
-
-    private void miVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVerActionPerformed
-        // TODO add your handling code here:
-        frmAsistensias asis =new  frmAsistensias();
-        asis.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_miVerActionPerformed
-
-    private void miRegistrarOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRegistrarOrgActionPerformed
-        // TODO add your handling code here:
-        frmOrganizador org =new  frmOrganizador();
-        org.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_miRegistrarOrgActionPerformed
-
-    private void mnItemCreadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemCreadorActionPerformed
-        // TODO add your handling code here:
-        frmCreadores cr =new  frmCreadores();
-        cr.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_mnItemCreadorActionPerformed
-
-    private void mnVolverLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnVolverLActionPerformed
+    private void mnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnSalirMouseClicked
         // TODO add your handling code here:
         frmLogin login =new  frmLogin();
         login.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_mnVolverLActionPerformed
+    }//GEN-LAST:event_mnSalirMouseClicked
 
-    private void mnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCerrarActionPerformed
+    private void mnAsistenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnAsistenciasMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_mnCerrarActionPerformed
+         frmAsistensias asis =new  frmAsistensias();
+        asis.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mnAsistenciasMouseClicked
+
+    private void mnEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnEventoMouseClicked
+        // TODO add your handling code here:
+        frmEvento re =new  frmEvento();
+        re.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mnEventoMouseClicked
+
+    private void mnAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnAlumnoMouseClicked
+        // TODO add your handling code here:
+         frmAlumno a =new  frmAlumno();
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mnAlumnoMouseClicked
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        frmCreadores cr =new  frmCreadores();
+        cr.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void mnOrganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnOrganizadorMouseClicked
+        // TODO add your handling code here:
+        frmOrganizador org =new  frmOrganizador();
+        org.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_mnOrganizadorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -382,19 +339,12 @@ public class frmCreadores extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JMenuItem miRegistrarAlumno;
-    private javax.swing.JMenuItem miRegistrarEvento;
-    private javax.swing.JMenuItem miRegistrarOrg;
-    private javax.swing.JMenuItem miVer;
     private javax.swing.JMenu mnAcercade;
     private javax.swing.JMenu mnAlumno;
     private javax.swing.JMenu mnAsistencias;
-    private javax.swing.JMenuItem mnCerrar;
     private javax.swing.JMenu mnEvento;
-    private javax.swing.JMenuItem mnItemCreador;
     private javax.swing.JMenu mnOrganizador;
     private javax.swing.JMenu mnSalir;
-    private javax.swing.JMenuItem mnVolverL;
     private javax.swing.JPanel pnlBienvenida;
     // End of variables declaration//GEN-END:variables
 }
