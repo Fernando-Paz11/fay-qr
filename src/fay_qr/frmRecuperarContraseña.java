@@ -47,6 +47,7 @@ public class frmRecuperarContraseña extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -77,7 +78,7 @@ public class frmRecuperarContraseña extends javax.swing.JFrame {
         txtSalir.setBackground(new java.awt.Color(39, 137, 202));
         txtSalir.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         txtSalir.setForeground(new java.awt.Color(255, 255, 255));
-        txtSalir.setText("Salir");
+        txtSalir.setText("Cancelar");
         txtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSalirActionPerformed(evt);

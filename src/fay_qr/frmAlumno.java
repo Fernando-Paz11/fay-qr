@@ -5,6 +5,7 @@
 package fay_qr;
 
 import clases.Alumnos;
+import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class frmAlumno extends javax.swing.JFrame {
     }
     
     Alumnos st=new Alumnos();
+    FileInputStream foto;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,9 +53,9 @@ public class frmAlumno extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtmatricula = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtcarrera = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlAlumnos = new javax.swing.JTable();
+        cbocarrera = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -64,6 +66,7 @@ public class frmAlumno extends javax.swing.JFrame {
         mnSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlBienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -166,9 +169,6 @@ public class frmAlumno extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(28, 21, 20));
         jLabel8.setText("Carrera:");
 
-        txtcarrera.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        txtcarrera.setForeground(new java.awt.Color(51, 51, 51));
-
         pnlAlumnos.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
         pnlAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,6 +186,9 @@ public class frmAlumno extends javax.swing.JFrame {
             pnlAlumnos.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
+        cbocarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sistemas computacionales", "Administración de empresas", "Contaduría pública", "Derecho", "Diseño gráfico", "Mercadotecnia y publicidad", "Psicología", "Arquitectura", "Educación", "Comunicación gráfica y publicidad" }));
+        cbocarrera.setSelectedIndex(-1);
+
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
@@ -197,7 +200,7 @@ public class frmAlumno extends javax.swing.JFrame {
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                                 .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -205,8 +208,8 @@ public class frmAlumno extends javax.swing.JFrame {
                                 .addComponent(txtmatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtcarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbocarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -217,7 +220,7 @@ public class frmAlumno extends javax.swing.JFrame {
                                         .addComponent(txttelefono)
                                         .addGap(180, 180, 180))
                                     .addComponent(txtnombre))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)
@@ -236,7 +239,7 @@ public class frmAlumno extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtmatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
-                            .addComponent(txtcarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbocarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -254,7 +257,7 @@ public class frmAlumno extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
+        getContentPane().add(pnlBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 900, 500));
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenuBar1.setToolTipText("");
@@ -367,7 +370,7 @@ public class frmAlumno extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
 
-        st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),txtcarrera.getText());
+        st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
         try {
             st.insertarAlumno();
             JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
@@ -473,6 +476,7 @@ public class frmAlumno extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cbocarrera;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
@@ -490,7 +494,6 @@ public class frmAlumno extends javax.swing.JFrame {
     private javax.swing.JMenu mnSalir;
     private javax.swing.JTable pnlAlumnos;
     private javax.swing.JPanel pnlBienvenida;
-    private javax.swing.JTextField txtcarrera;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtmatricula;
     private javax.swing.JTextField txtnombre;

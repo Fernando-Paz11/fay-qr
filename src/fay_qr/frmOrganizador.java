@@ -63,6 +63,7 @@ public class frmOrganizador extends javax.swing.JFrame {
         mnSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlBienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -225,7 +226,7 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
+        getContentPane().add(pnlBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 480));
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenuBar1.setToolTipText("");

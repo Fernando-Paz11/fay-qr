@@ -137,6 +137,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -168,7 +169,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="900" height="500"/>
+          <AbsoluteConstraints x="0" y="10" width="900" height="500"/>
         </Constraint>
       </Constraints>
 
@@ -182,7 +183,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="26" max="32767" attributes="0"/>
                                   <Component id="txtcorreo" min="-2" pref="500" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -191,8 +192,8 @@
                                   <Component id="txtmatricula" min="-2" pref="140" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel8" min="-2" pref="93" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtcarrera" min="-2" pref="241" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cbocarrera" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -209,7 +210,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace pref="80" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -233,7 +234,7 @@
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtmatricula" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtcarrera" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbocarrera" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -450,16 +451,6 @@
             <Property name="text" type="java.lang.String" value="Carrera:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtcarrera">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Berlin Sans FB" size="16" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="33" type="rgb"/>
-            </Property>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -505,6 +496,28 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JComboBox" name="cbocarrera">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="10">
+                <StringItem index="0" value="Sistemas computacionales"/>
+                <StringItem index="1" value="Administraci&#xf3;n de empresas"/>
+                <StringItem index="2" value="Contadur&#xed;a p&#xfa;blica"/>
+                <StringItem index="3" value="Derecho"/>
+                <StringItem index="4" value="Dise&#xf1;o gr&#xe1;fico"/>
+                <StringItem index="5" value="Mercadotecnia y publicidad"/>
+                <StringItem index="6" value="Psicolog&#xed;a"/>
+                <StringItem index="7" value="Arquitectura"/>
+                <StringItem index="8" value="Educaci&#xf3;n"/>
+                <StringItem index="9" value="Comunicaci&#xf3;n gr&#xe1;fica y publicidad"/>
+              </StringArray>
+            </Property>
+            <Property name="selectedIndex" type="int" value="-1"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

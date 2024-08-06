@@ -60,6 +60,7 @@ public class frmCreadores extends javax.swing.JFrame {
         jLabel4.setText("¡Hola! Disfruta de esta experiencia");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlBienvenida.setBackground(new java.awt.Color(255, 255, 255));

@@ -78,6 +78,7 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio Sesión");
         setBackground(new java.awt.Color(56, 110, 255));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -130,7 +131,7 @@ public class frmLogin extends javax.swing.JFrame {
         jPanel1.add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 60, 40));
 
         lblpass.setPreferredSize(new java.awt.Dimension(75, 75));
-        jPanel1.add(lblpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 60, 40));
+        jPanel1.add(lblpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 60, 50));
 
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         jLabel3.setText("Constraseña");
@@ -201,8 +202,9 @@ public class frmLogin extends javax.swing.JFrame {
         contraseña=txtContraseña.getText();
         
         try {
+            
             user.validarUsuario(usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Los datos son correctos","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Los datos son correctos","CONGRATULATION", JOptionPane.INFORMATION_MESSAGE);
             frmMenu menu=new frmMenu();
             menu.setVisible(true);
             this.setVisible(false);

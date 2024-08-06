@@ -50,6 +50,7 @@ public class frmAsistensias extends javax.swing.JFrame {
         mnSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlBienvenida.setBackground(new java.awt.Color(255, 255, 255));
