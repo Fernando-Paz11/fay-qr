@@ -7,6 +7,9 @@ package fay_qr;
 import clases.Organizador;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
@@ -29,6 +32,44 @@ public class frmOrganizador extends javax.swing.JFrame {
     }
 
     Organizador st=new Organizador();
+    DefaultTableModel modelo= new DefaultTableModel();
+    public void cargarTabla(){
+          try {
+            tblorganizador.setModel(modelo);
+            ResultSet rs = null;
+            rs = st.consultarorganizadorRS();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+           
+            // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+            modelo.addColumn("NOMBRE COMPLETO");
+            modelo.addColumn("PUESTO");
+            modelo.addColumn("CLAVE");
+            modelo.addColumn("CORREO");
+            modelo.addColumn("TELEFONO");
+        
+           
+            //SE DEFINE EL ANCHO DE CADA COLUMNA
+            int[] anchos = {50, 200, 50, 50,50};
+           
+            //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
+            for (int i = 0; i < tblorganizador.getColumnCount(); i++) {
+                tblorganizador.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+
+            while (rs.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +94,8 @@ public class frmOrganizador extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtpuesto = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblorganizador = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -164,6 +207,24 @@ public class frmOrganizador extends javax.swing.JFrame {
         txtpuesto.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         txtpuesto.setForeground(new java.awt.Color(51, 51, 51));
 
+        tblorganizador.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblorganizador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblorganizadorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblorganizador);
+
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
@@ -173,29 +234,31 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtclave)
-                        .addGap(472, 472, 472))
+                        .addGap(40, 40, 40)
+                        .addComponent(txtclave, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addGap(450, 450, 450))
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7))
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(24, 24, 24)
+                                .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5))
-                                .addGap(24, 24, 24)
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                        .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txttelefono))
-                                    .addComponent(txtcorreo))))
-                        .addGap(0, 100, Short.MAX_VALUE)))
+                                .addGap(40, 40, 40)
+                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 80, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -213,13 +276,15 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,6 +469,29 @@ public class frmOrganizador extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void tblorganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblorganizadorMouseClicked
+        // TODO add your handling code here:
+         try {
+            int Fila = tblorganizador.getSelectedRow();
+            int id_organizador = Integer.parseInt(tblorganizador.getValueAt(Fila, 0).toString());
+            java.sql.ResultSet rs=null;
+            rs=st.buscarOrganizadorRS(id_organizador);
+           
+            while (rs.next()) {
+                txtnombre.setText(rs.getString("nombre_completo"));
+                txtpuesto.setText(rs.getString("Puesto"));
+                txtclave.setText(rs.getString("clave"));
+                txtcorreo.setText(rs.getString("correo"));
+                txttelefono.setText(rs.getString("telefono"));
+                
+                //System.out.println(rs.getString("tipo_usuario"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    
+    }//GEN-LAST:event_tblorganizadorMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -451,6 +539,7 @@ public class frmOrganizador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnAcercade;
     private javax.swing.JMenu mnAlumno;
     private javax.swing.JMenu mnAsistencias;
@@ -458,6 +547,7 @@ public class frmOrganizador extends javax.swing.JFrame {
     private javax.swing.JMenu mnOrganizador;
     private javax.swing.JMenu mnSalir;
     private javax.swing.JPanel pnlBienvenida;
+    private javax.swing.JTable tblorganizador;
     private javax.swing.JTextField txtclave;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombre;

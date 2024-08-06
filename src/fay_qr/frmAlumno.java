@@ -8,7 +8,11 @@ import clases.Alumnos;
 import java.io.FileInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
 
 /**
  *
@@ -29,6 +33,39 @@ public class frmAlumno extends javax.swing.JFrame {
     
     Alumnos st=new Alumnos();
     FileInputStream foto;
+    DefaultTableModel modelo= new DefaultTableModel();
+    public void cargarTabla(){
+          try {
+            tblalumno.setModel(modelo);
+            ResultSet rs = null;
+            rs = st.consultarAlumnosRS();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+           
+            // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+            modelo.addColumn("MATRICULA");
+            modelo.addColumn("NOMBRE COMPLETO");
+           
+            //SE DEFINE EL ANCHO DE CADA COLUMNA
+            int[] anchos = {50, 200};
+           
+            //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
+            for (int i = 0; i < tblalumno.getColumnCount(); i++) {
+                tblalumno.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+
+            while (rs.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+                for (int i = 1; i < 2; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +91,7 @@ public class frmAlumno extends javax.swing.JFrame {
         txtmatricula = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        pnlAlumnos = new javax.swing.JTable();
+        tblalumno = new javax.swing.JTable();
         cbocarrera = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
@@ -169,8 +206,8 @@ public class frmAlumno extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(28, 21, 20));
         jLabel8.setText("Carrera:");
 
-        pnlAlumnos.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
-        pnlAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+        tblalumno.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
+        tblalumno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -178,12 +215,17 @@ public class frmAlumno extends javax.swing.JFrame {
                 "Alumnos", "Actualizar", "Eliminar"
             }
         ));
-        pnlAlumnos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(pnlAlumnos);
-        if (pnlAlumnos.getColumnModel().getColumnCount() > 0) {
-            pnlAlumnos.getColumnModel().getColumn(0).setMaxWidth(500);
-            pnlAlumnos.getColumnModel().getColumn(1).setMaxWidth(100);
-            pnlAlumnos.getColumnModel().getColumn(2).setMaxWidth(100);
+        tblalumno.getTableHeader().setReorderingAllowed(false);
+        tblalumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblalumnoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblalumno);
+        if (tblalumno.getColumnModel().getColumnCount() > 0) {
+            tblalumno.getColumnModel().getColumn(0).setMaxWidth(500);
+            tblalumno.getColumnModel().getColumn(1).setMaxWidth(100);
+            tblalumno.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
         cbocarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sistemas computacionales", "Administración de empresas", "Contaduría pública", "Derecho", "Diseño gráfico", "Mercadotecnia y publicidad", "Psicología", "Arquitectura", "Educación", "Comunicación gráfica y publicidad" }));
@@ -199,32 +241,30 @@ public class frmAlumno extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtmatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbocarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(cbocarrera, 0, 247, Short.MAX_VALUE))
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6))
+                                .addComponent(jLabel2)
                                 .addGap(26, 26, 26)
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                        .addComponent(txttelefono)
-                                        .addGap(180, 180, 180))
-                                    .addComponent(txtnombre))))
+                                .addComponent(txtnombre))
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtcorreo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
-                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)
-                        .addGap(30, 30, 30)))
+                        .addGap(18, 18, 18)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -247,13 +287,11 @@ public class frmAlumno extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -437,6 +475,28 @@ public class frmAlumno extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void tblalumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblalumnoMouseClicked
+        // TODO add your handling code here:
+        try {
+            int Fila = tblalumno.getSelectedRow();
+            int id_alumno = Integer.parseInt(tblalumno.getValueAt(Fila, 0).toString());
+            ResultSet rs=null;
+            rs=st.buscarAlumnoRS(id_alumno);
+           
+            while (rs.next()) {
+                txtmatricula.setText(rs.getString("matricula"));
+                txtnombre.setText(rs.getString("nombre_completo"));
+                txtcorreo.setText(rs.getString("correo"));
+                txttelefono.setText(rs.getString("telefono"));
+                cbocarrera.setSelectedItem(rs.getString("carrera"));
+                
+                //System.out.println(rs.getString("tipo_usuario"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_tblalumnoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -492,8 +552,8 @@ public class frmAlumno extends javax.swing.JFrame {
     private javax.swing.JMenu mnEvento;
     private javax.swing.JMenu mnOrganizador;
     private javax.swing.JMenu mnSalir;
-    private javax.swing.JTable pnlAlumnos;
     private javax.swing.JPanel pnlBienvenida;
+    private javax.swing.JTable tblalumno;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtmatricula;
     private javax.swing.JTextField txtnombre;
