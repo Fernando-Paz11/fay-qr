@@ -203,8 +203,9 @@ public class frmLogin extends javax.swing.JFrame {
         
         try {
             int resultado = user.validarUsuario(usuario,contraseña);
-            if(resultado==1){
-            JOptionPane.showMessageDialog(null, "Los datos son correctos","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
+            
+            if(resultado!=0){
+           // JOptionPane.showMessageDialog(null, "Los datos son correctos","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
             frmMenu menu=new frmMenu();
             menu.setVisible(true);
             this.setVisible(false);

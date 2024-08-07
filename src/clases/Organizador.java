@@ -164,7 +164,7 @@ public class Organizador {
 
     }
 
-    //Metodo para actualizar un usuario
+    //Metodo para actualizar un organizador
     public boolean actualizarorganizador() throws SQLException{
         String query;
         boolean respuesta=false;
@@ -173,7 +173,7 @@ public class Organizador {
         query="UPDATE organizador\n" +
                 " SET nombre='"+getNombre()+"'," +
                 " puesto='"+getPuesto()+"'," +
-                " clsave='"+getClave()+"'," +
+                " clave='"+getClave()+"'," +
                 " correo='"+getCorreo()+"'," +
                 " telefono='"+getTelefono()+"'," +
                 " WHERE id_organizador="+getId_organizador()+";";

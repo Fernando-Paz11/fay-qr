@@ -250,13 +250,16 @@ public class Usuario {
     
     public int validarUsuario(String usuario, String contraseña) throws SQLException{
         int id=0;
+       
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
-        String query="SELECT id_usuario FROM registro_usuario WHERE usuario =? AND contraseña=?";
+        String query="SELECT Id_registro_usuario FROM registro_usuario WHERE usuario = '"+usuario+"' AND contraseña='"+contraseña+"';";
+        
         try{
             rs=sql.executeQuery(query);
-            id=rs.getInt("id_usuario");
+            while(rs.next())
+                id=rs.getInt("Id_registro_usuario");
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
