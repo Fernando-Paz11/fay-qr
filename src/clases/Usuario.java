@@ -246,6 +246,8 @@ public class Usuario {
         conBD.desconectar();
         return rs;
     }
+    
+    
     public int validarUsuario(String usuario, String contraseña) throws SQLException{
         int id=0;
         conBD.conectar();

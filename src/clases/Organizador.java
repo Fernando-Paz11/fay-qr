@@ -173,9 +173,10 @@ public class Organizador {
         query="UPDATE organizador\n" +
                 " SET nombre='"+getNombre()+"'," +
                 " puesto='"+getPuesto()+"'," +
-                " clave='"+getClave()+"'," +
+                " clsave='"+getClave()+"'," +
                 " correo='"+getCorreo()+"'," +
-                " telefono='"+getTelefono()+"'," + ";";
+                " telefono='"+getTelefono()+"'," +
+                " WHERE id_organizador="+getId_organizador()+";";
        
          try{
             sql.execute(query);

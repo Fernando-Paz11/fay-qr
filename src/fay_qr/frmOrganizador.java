@@ -5,6 +5,7 @@
 package fay_qr;
 
 import clases.Organizador;
+import clases.Usuario;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,8 @@ public class frmOrganizador extends javax.swing.JFrame {
         
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
+        
+        cargarTabla();
     }
 
     Organizador st=new Organizador();
@@ -42,11 +45,11 @@ public class frmOrganizador extends javax.swing.JFrame {
             int cantidadColumnas = rsMd.getColumnCount();
            
             // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
-            modelo.addColumn("NOMBRE COMPLETO");
+            modelo.addColumn("ID");
+            modelo.addColumn("NOMBRE");
             modelo.addColumn("PUESTO");
-            modelo.addColumn("CLAVE");
-            modelo.addColumn("CORREO");
             modelo.addColumn("TELEFONO");
+            modelo.addColumn("CORREO");
         
            
             //SE DEFINE EL ANCHO DE CADA COLUMNA
@@ -96,6 +99,7 @@ public class frmOrganizador extends javax.swing.JFrame {
         txtpuesto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblorganizador = new javax.swing.JTable();
+        txtId = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -236,7 +240,9 @@ public class frmOrganizador extends javax.swing.JFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(txtclave, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                        .addGap(450, 450, 450))
+                        .addGap(88, 88, 88)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(227, 227, 227))
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
@@ -268,7 +274,8 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -413,10 +420,24 @@ public class frmOrganizador extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        
+        st = new Organizador(Integer.parseInt(txtId.getText()),txtnombre.getText(),txtpuesto.getText(),txtclave.getText(),txtcorreo.getText(),txttelefono.getText());
+       
+        try {
+            st.actualizarorganizador();
+            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            st.eliminarorganizador(Integer.parseInt(txtId.getText()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void mnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnSalirMouseClicked
@@ -472,13 +493,14 @@ public class frmOrganizador extends javax.swing.JFrame {
     private void tblorganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblorganizadorMouseClicked
         // TODO add your handling code here:
          try {
+             
             int Fila = tblorganizador.getSelectedRow();
             int id_organizador = Integer.parseInt(tblorganizador.getValueAt(Fila, 0).toString());
-            java.sql.ResultSet rs=null;
+            ResultSet rs=null;
             rs=st.buscarOrganizadorRS(id_organizador);
-           
             while (rs.next()) {
-                txtnombre.setText(rs.getString("nombre_completo"));
+                txtId.setText(rs.getString("id_organizador"));
+                txtnombre.setText(rs.getString("nombre"));
                 txtpuesto.setText(rs.getString("Puesto"));
                 txtclave.setText(rs.getString("clave"));
                 txtcorreo.setText(rs.getString("correo"));
@@ -548,6 +570,7 @@ public class frmOrganizador extends javax.swing.JFrame {
     private javax.swing.JMenu mnSalir;
     private javax.swing.JPanel pnlBienvenida;
     private javax.swing.JTable tblorganizador;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtclave;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombre;

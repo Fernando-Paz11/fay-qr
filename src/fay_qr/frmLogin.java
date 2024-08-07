@@ -202,12 +202,16 @@ public class frmLogin extends javax.swing.JFrame {
         contraseña=txtContraseña.getText();
         
         try {
-            
-            user.validarUsuario(usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Los datos son correctos","CONGRATULATION", JOptionPane.INFORMATION_MESSAGE);
+            int resultado = user.validarUsuario(usuario,contraseña);
+            if(resultado==1){
+            JOptionPane.showMessageDialog(null, "Los datos son correctos","FELICIDADES", JOptionPane.INFORMATION_MESSAGE);
             frmMenu menu=new frmMenu();
             menu.setVisible(true);
             this.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+            
         }catch(SQLException ex) {
              JOptionPane.showMessageDialog(null,ex.getMessage());
             //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);

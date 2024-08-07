@@ -307,6 +307,9 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
         try {
             user.insertarUsuario();
             JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            frmLogin login =new  frmLogin();
+            login.setVisible(true);
+            this.setVisible(false);
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null,ex.getMessage());
             //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
