@@ -5,13 +5,20 @@
 package fay_qr;
 
 import clases.Alumnos;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import net.glxn.qrgen.QRCode;//Genera el codigo
 
 
 /**
@@ -81,6 +88,7 @@ public class frmAlumno extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        lblQr = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -140,6 +148,8 @@ public class frmAlumno extends javax.swing.JFrame {
             }
         });
 
+        lblQr.setToolTipText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,6 +161,10 @@ public class frmAlumno extends javax.swing.JFrame {
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar))
                 .addGap(28, 28, 28))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblQr, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +175,9 @@ public class frmAlumno extends javax.swing.JFrame {
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(lblQr, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
@@ -260,7 +276,7 @@ public class frmAlumno extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtcorreo)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)
@@ -407,10 +423,26 @@ public class frmAlumno extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-
+        
+        ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText()+txtnombre.getText()+cbocarrera.getSelectedItem()).withSize(50, 50).stream();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
         st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+        BufferedImage bf = null;
+        
+        File f = new File("src/img/codigo_qr.png");
+        try {
+            ImageIO.write(bf, "png", f);
+            Thread.sleep(2000);
+            bf = ImageIO.read(inputStream);
+            ImageIcon icono = new ImageIcon(getClass().getResource("img/codigo_qr.png"));
+            lblQr.setIcon(icono);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
         try {
             st.insertarAlumno();
+            
             JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -546,6 +578,7 @@ public class frmAlumno extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblQr;
     private javax.swing.JMenu mnAcercade;
     private javax.swing.JMenu mnAlumno;
     private javax.swing.JMenu mnAsistencias;
