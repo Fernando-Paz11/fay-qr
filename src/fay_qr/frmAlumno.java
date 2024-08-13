@@ -425,16 +425,14 @@ public class frmAlumno extends javax.swing.JFrame {
         
         ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText()+", "+txtnombre.getText()+", "+cbocarrera.getSelectedItem()).withSize(150, 150).stream();
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
-       
         BufferedImage bf = null;
-        File ruta_img = new File("src/codigo_qr/codigo_qr.png");
         byte[] foto;
-        //JOption
+        File ruta_img = new File("src/codigo_qr/codigo_qr.png");
         
         try {
             bf = ImageIO.read(inputStream);
             foto = Files.readAllBytes(ruta_img.toPath());
-            st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+            //st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
