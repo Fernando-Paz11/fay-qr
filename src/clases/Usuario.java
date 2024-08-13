@@ -254,12 +254,12 @@ public class Usuario {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
-        String query="SELECT Id_registro_usuario FROM registro_usuario WHERE usuario = '"+usuario+"' AND contraseña='"+contraseña+"';";
+        String query="SELECT id_usuario FROM registro_usuario WHERE usuario = '"+usuario+"' AND contraseña='"+contraseña+"';";
         
         try{
             rs=sql.executeQuery(query);
             while(rs.next())
-                id=rs.getInt("Id_registro_usuario");
+                id=rs.getInt("id_usuario");
         }
         catch(SQLException e){
             System.out.println(e.getMessage());

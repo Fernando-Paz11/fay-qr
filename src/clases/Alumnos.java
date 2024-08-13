@@ -5,7 +5,11 @@
 package clases;
 
 import clases.Conexion;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.glxn.qrgen.QRCode;//Genera el codigo
 
 /**
  *
@@ -27,7 +32,6 @@ public class Alumnos {
     private String correo;
     private String carrera;
     private FileInputStream foto;
-    //private FileInputStream foto;
     
     Conexion conBD= new Conexion("localhost", "root", "","bd_fayqr");
     
@@ -119,9 +123,8 @@ public class Alumnos {
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
-       
         query = "INSERT INTO alumno (matricula, nombre_completo, correo, telefono, carrera,foto) "
-             + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"''"+getFoto()+"');";
+           + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"''"+getFoto()+"');";
        
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
@@ -253,13 +256,14 @@ public class Alumnos {
          try {
             ResultSet rs = sql.executeQuery(query); //resulset es para variables que almaceanaran un conjunto de registros
             while (rs.next()) {
-                String[] registros = new String[5];
-                registros[0] = rs.getString("id_alumnp");
+                String[] registros = new String[6];
+                registros[0] = rs.getString("id_alumno");
                 registros[1] = rs.getString("matricula");
                 registros[2] = rs.getString("nombre_completo");
                 registros[3] = rs.getString("correo");
                 registros[4] = rs.getString("telefono");
                 registros[5] = rs.getString("carrera");
+                registros[6] = rs.getString("foto");
                 alumnos.add(registros);
             }
             return alumnos;  
@@ -273,7 +277,6 @@ public class Alumnos {
         String query = "SELECT * FROM alumno";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
-       
          try {
             ResultSet rs = sql.executeQuery(query); //resulset es para variables que almaceanaran un conjunto de registros
             return rs;  
@@ -287,7 +290,7 @@ public class Alumnos {
     public void mostrarUsuarios() {                                                  
         List<String[]> alumnos = consultarAlumno();
         for (String[] data : alumnos) {
-             System.out.print(data[0] + " , " + data[1]+ " , " + data[2]+ " , " + data[3]+ " , " + data[4]+ " , " + data[5]+"\n");
+             System.out.print(data[0] + " , " + data[1]+ " , " + data[2]+ " , " + data[3]+ " , " + data[4]+ " , " + data[5]+" , " + data[6]+"\n");
         }  
     }
 }

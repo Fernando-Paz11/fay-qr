@@ -22,12 +22,12 @@ import javax.swing.JOptionPane;
  */
 public class Evento {
     private int id_evento;
-    private String nombre_completo;
-    private String usuario;
-    private String tipo_usuario;
-    private String telefono;
-    private String correo;
-    private String contraseña;
+    private String fecha;
+    private String nombre;
+    private String hora_inicio;
+    private String hora_fin;
+    private String lugar;
+    private String capacidad;
     //private FileInputStream foto;
     
     Conexion conBD= new Conexion("localhost", "root", "","bd_fayqr");
@@ -35,86 +35,94 @@ public class Evento {
     //Constructor por defecto
     public Evento(){
         this.id_evento=0;
-        this.nombre_completo="";
-        this.usuario="";
-        this.tipo_usuario="";
-        this.telefono="";
-        this.correo="";
-        this.contraseña="";
+        this.fecha="";
+        this.nombre="";
+        this.hora_inicio="";
+        this.hora_fin="";
+        this.lugar="";
+        this.capacidad="";
        
     }
    
     //Constrluctor que recibe parametros
-    public Evento(int id_usuario,String clave,String nombre_completo,String usuario,String tipo_usuario,String correo,String telefono,String contraseña){
+    public Evento(int id_evento,String fecha,String nombre,String hora_inicio,String hora_fin,String lugar,String capacidad){
         
-        this.id_evento=id_usuario;
-        this.nombre_completo=nombre_completo;
-        this.usuario=usuario;
-        this.tipo_usuario=tipo_usuario;
-        this.telefono=telefono;
-        this.correo=correo;
-        this.contraseña=contraseña;
+        this.id_evento=id_evento;
+        this.fecha=fecha;
+        this.nombre=nombre;
+        this.hora_inicio=hora_inicio;
+        this.hora_fin=hora_fin;
+        this.lugar=lugar;
+        this.capacidad=capacidad;
         //this.foto=foto;
     }
    
     //TAREA HACER SETs/GETs
-    public void setIdEvnto(int id_usuario){
-           this.id_evento=id_usuario;
+
+    public void setId_evento(int id_evento) {
+        this.id_evento = id_evento;
     }
-   
-    public void setNombreCompleto(String nombre_completo){
-           this.nombre_completo=nombre_completo;
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setHora_inicio(String hora_inicio) {
+        this.hora_inicio = hora_inicio;
+    }
+
+    public void setHora_fin(String hora_fin) {
+        this.hora_fin = hora_fin;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public void setCapacidad(String capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public void setConBD(Conexion conBD) {
+        this.conBD = conBD;
+    }
+
+    public int getId_evento() {
+        return id_evento;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getHora_inicio() {
+        return hora_inicio;
+    }
+
+    public String getHora_fin() {
+        return hora_fin;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public String getCapacidad() {
+        return capacidad;
+    }
+
+    public Conexion getConBD() {
+        return conBD;
     }
     
-    public void setUsuario(String usuario){
-        this.usuario=usuario;
-    }
-   
-    public void setTipoUsuario(String tipo_usuario){
-           this.tipo_usuario=tipo_usuario;
-    }
-   
-    public void setTelefono(String telefono){
-           this.telefono=telefono;
-    }
-   
-    public void setCorreo(String correo){
-           this.correo=correo;
-    }
-    
-    public void setContraseña(String contraseña){
-           this.contraseña=contraseña;
-    }
-    
-    
-    public int getIdEvento(){
-        return this.id_evento;
-    }
-   
-   
-    public String getNombreCompleto(){
-        return this.nombre_completo;
-    }
-    
-    public String getUsuario(){
-        return this.usuario;
-    }
-   
-    public String getTipoUsuario(){
-        return this.tipo_usuario;
-    }
-   
-    public String getTelefono(){
-        return this.telefono;
-    }
-   
-    public String getCorreo(){
-        return this.correo;
-    }
-    
-    public String getContraseña(){
-        return this.contraseña;
-    }
    
     /*public FileInputStream getFoto() {
         return foto;
@@ -125,14 +133,14 @@ public class Evento {
     }*/
    
     //METODO INSERTAR
-    public boolean insertarUsuario() throws SQLException{
+    public boolean insertarevento() throws SQLException{
         String query;
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        query = "INSERT INTO registro_usuario (clave, usuario, nombre_completo, tipo_usuario, correo, telefono, contraseña) "
-             + "VALUES ('"+(getIdEvento())+"', '"+getUsuario()+"', '"+ getNombreCompleto()+"', '"+ getTipoUsuario()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getContraseña()+"');";
+        query = "INSERT INTO registro_evento (id_evento, fecha, nombre, hora_inicio, hora_fin, lugar, capacidad) "
+             + "VALUES ('"+(getId_evento())+"', '"+getFecha()+"', '"+ getNombre()+"', '"+ getHora_inicio()+"', '"+getHora_fin()+"', '"+getLugar() +"', '"+getCapacidad()+"');";
        
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
@@ -143,25 +151,25 @@ public class Evento {
     }
    
     //Metodo para buscar un registro
-     public String[] buscarUsuario(int id_usuario) throws SQLException {
+     public String[] buscarevento(int id_evento) throws SQLException {
         String query;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
         String[] registro = new String[7];
-        query = "SELECT * FROM registro_usuario WHERE id_usuario ='" + id_usuario + "'";
+        query = "SELECT * FROM registro_evento WHERE id_evento ='" + id_evento + "'";
        
         //System.out.println(query);
         try{
             rs=sql.executeQuery(query);
             if (rs.next()) {
-                registro[0] = rs.getString("id_usuario");
-                registro[1] = rs.getString("clave");
-                registro[2] = rs.getString("nombre_completo");
-                registro[3] = rs.getString("tipo_usuario");
-                registro[4] = rs.getString("telefono");
-                registro[5] = rs.getString("correo");
-                registro[6] = rs.getString("contraseña");
+                registro[0] = rs.getString("id_evento");
+                registro[1] = rs.getString("fecha");
+                registro[2] = rs.getString("nombre");
+                registro[3] = rs.getString("hora_inicio");
+                registro[4] = rs.getString("hora_fin");
+                registro[5] = rs.getString("lugar");
+                registro[6] = rs.getString("capacidad");
             }
            
         }catch (SQLException e) {
@@ -173,19 +181,19 @@ public class Evento {
     }
 
     //Metodo para actualizar un usuario
-    public boolean actualizarUsuario() throws SQLException{
+    public boolean actualizarevento() throws SQLException{
         String query;
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
-        query="UPDATE registro_usuario\n" +
-                " clave='"+getIdEvento()+"'," +
-                " SET nombre_completo='"+getNombreCompleto()+"'," +
-                " tipo_usuario='"+getTipoUsuario()+"'," +
-                " telefono='"+getTelefono()+"'," +
-                " correo='"+getCorreo()+"'," +
-                " contrseña='"+getContraseña()+"'," +
-                " WHERE id_evento="+getIdEvento()+";";
+        query="UPDATE registro_evento\n" +
+                " clave='"+getId_evento()+"'," +
+                " SET nombre_completo='"+getFecha()+"'," +
+                " tipo_usuario='"+getNombre()+"'," +
+                " telefono='"+getHora_inicio()+"'," +
+                " correo='"+getHora_fin()+"'," +
+                " contrseña='"+getLugar()+"'," +
+                " WHERE id_evento="+getCapacidad()+";";
        
          try{
             sql.execute(query);
@@ -199,17 +207,17 @@ public class Evento {
     }
    
     //Metodo para eliminar un usuario
-    public boolean eliminarUsuario(int id_usuario) throws SQLException{
+    public boolean eliminarevento(int id_evento) throws SQLException{
         boolean respuesta;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        String query="DELETE FROM registro_usuario WHERE id_usuario="+id_usuario+";";
+        String query="DELETE FROM registro_evento WHERE id_evento="+id_evento+";";
        
         try{            
             sql.execute(query);
             respuesta=true;
-            autonumericoIdUsuario();
+            autonumericoIdevento();
         }catch (SQLException e) {
             respuesta=false;
             System.out.println(e.getMessage());
@@ -219,12 +227,12 @@ public class Evento {
     } 
     
     //Metodo para buscar un registrodevuelve un resulset
-    public ResultSet buscarUsuarioRS(int id_usuario) throws SQLException {
+    public ResultSet buscareventoRS(int id_evento) throws SQLException {
         String query;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
-        query = "SELECT * FROM registro_usuario WHERE id_usuario ='" + id_usuario + "'";
+        query = "SELECT * FROM registro_evento WHERE id_evento ='" + id_evento + "'";
        
         //System.out.println(query);
         try{
@@ -236,7 +244,7 @@ public class Evento {
         conBD.desconectar();
         return rs;
     }
-    public int validarUsuario(String usuario, String contraseña) throws SQLException{
+  /*  public int validarUsuario(String usuario, String contraseña) throws SQLException{
         int id=0;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
@@ -250,15 +258,15 @@ public class Evento {
             System.out.println(e.getMessage());
         }
         return id;
-    }
+    }*/
    
     //Metodo para inicializar a id_usuario
-    public boolean autonumericoIdUsuario() throws SQLException{
+    public boolean autonumericoIdevento() throws SQLException{
         boolean respuesta;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        String query="ALTER TABLE registro_usuario AUTO_INCREMENT=1;";
+        String query="ALTER TABLE registro_evento AUTO_INCREMENT=1;";
         //System.out.println(query);
         try{            
             sql.execute(query);
@@ -272,9 +280,9 @@ public class Evento {
     }
    
     //Metodo para mostrar registros
-    private List<String[]> consultarUsuarios() {
-        List<String[]> usuarios = new ArrayList<>();
-        String query = "SELECT * FROM registro_usuario";
+    private List<String[]> consultarevento() {
+        List<String[]> evento = new ArrayList<>();
+        String query = "SELECT * FROM registro_evento";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
        
@@ -282,24 +290,24 @@ public class Evento {
             ResultSet rs = sql.executeQuery(query); //resulset es para variables que almaceanaran un conjunto de registros
             while (rs.next()) {
                 String[] registros = new String[7];
-                registros[0] = rs.getString("id_usuario");
-                registros[1] = rs.getString("clave");
-                registros[2] = rs.getString("nombre_completo");
-                registros[3] = rs.getString("tipo_usuario");
-                registros[4] = rs.getString("telefono");
-                registros[5] = rs.getString("correo");
-                registros[6] = rs.getString("contraseña");
-                usuarios.add(registros);
+                registros[0] = rs.getString("id_evento");
+                registros[1] = rs.getString("fecha");
+                registros[2] = rs.getString("nombre");
+                registros[3] = rs.getString("hora_inicio");
+                registros[4] = rs.getString("hora_fin");
+                registros[5] = rs.getString("lugar");
+                registros[6] = rs.getString("capacidad");
+                evento.add(registros);
             }
-            return usuarios;  
+            return evento;  
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
            return null;
         }
     }
    
-    public ResultSet consultarUsuariosRS() {
-        String query = "SELECT * FROM registro_usuario";
+    public ResultSet consultareventoRS() {
+        String query = "SELECT * FROM registro_evento";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
        
@@ -313,9 +321,9 @@ public class Evento {
     }
    
     //METODO MOSTRAR TABLA DE USUARIOS
-    public void mostrarUsuarios() {                                                  
-        List<String[]> usuarios = consultarUsuarios();
-        for (String[] data : usuarios) {
+    public void mostrarevento() {                                                  
+        List<String[]> evento = consultarevento();
+        for (String[] data : evento) {
              System.out.print(data[0] + " , " + data[1]+ " , " + data[2]+ " , " + data[3]+ " , " + data[4]+ " , " + data[5]+" , "+data[6]+"\n");
         }  
        
