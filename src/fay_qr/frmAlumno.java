@@ -37,9 +37,8 @@ public class frmAlumno extends javax.swing.JFrame {
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);  
     }
-    
-    Alumnos st=new Alumnos();
     FileInputStream foto;
+    Alumnos st=new Alumnos();
     DefaultTableModel modelo= new DefaultTableModel();
     public void cargarTabla(){
           try {
@@ -424,28 +423,40 @@ public class frmAlumno extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         
-        ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText()+txtnombre.getText()+cbocarrera.getSelectedItem()).withSize(50, 50).stream();
+        ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText()+", "+txtnombre.getText()+", "+cbocarrera.getSelectedItem()).withSize(150, 150).stream();
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
-        st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+       
         BufferedImage bf = null;
+        File ruta_img = new File("src/codigo_qr/codigo_qr.png");
+        byte[] foto;
+        //JOption
         
-        File f = new File("src/img/codigo_qr.png");
+        try {
+            bf = ImageIO.read(inputStream);
+            foto = Files.readAllBytes(ruta_img.toPath());
+            st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        File f = new File("src/codigo_qr/codigo_qr.png");
         try {
             ImageIO.write(bf, "png", f);
             Thread.sleep(2000);
-            bf = ImageIO.read(inputStream);
-            ImageIcon icono = new ImageIcon(getClass().getResource("img/codigo_qr.png"));
+            
+            ImageIcon icono = new ImageIcon(getClass().getResource("src/codigo_qr/codigo_qr.png"));
             lblQr.setIcon(icono);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
+            System.out.println(e.getMessage());
         }
-        try {
+       try {
             st.insertarAlumno();
             
             JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
+            System.out.println(ex.getMessage());
             //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
