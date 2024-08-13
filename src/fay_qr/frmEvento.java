@@ -4,7 +4,12 @@
  */
 package fay_qr;
 
+import clases.Evento;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,9 +28,14 @@ public class frmEvento extends javax.swing.JFrame {
         
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
+        txtFecha.setText(FechaParaMi());
+    }
+    Evento st=new Evento();
+    public String FechaParaMi(){
+        Date fecha=new Date();
+        SimpleDateFormat FechaAct = new SimpleDateFormat("dd/MM/yyyy");
         
-        
-        
+        return FechaAct.format(fecha);
     }
 
     /**
@@ -58,7 +68,7 @@ public class frmEvento extends javax.swing.JFrame {
         txtLugar = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtCapacidad = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtid = new javax.swing.JFormattedTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -172,6 +182,14 @@ public class frmEvento extends javax.swing.JFrame {
 
         txtFecha.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         txtFecha.setForeground(new java.awt.Color(51, 51, 51));
+        txtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtFechaMouseEntered(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtFechaMouseReleased(evt);
+            }
+        });
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaActionPerformed(evt);
@@ -226,44 +244,41 @@ public class frmEvento extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtid.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
             pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
+                .addGap(26, 26, 26)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(26, 26, 26)
+                            .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                            .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
+                        .addGap(95, 95, 95))
+                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(84, 84, 84)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
-                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
-                                .addGap(95, 95, 95))))
-                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -274,9 +289,9 @@ public class frmEvento extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addGap(10, 10, 10)
+                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -404,24 +419,35 @@ public class frmEvento extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        /*
-        user=new Usuario(0,txtnombre.getText(),cbotipo.getSelectedItem().toString(),txttelefono.getText(),txtcorreo.getText(),cboestatus.getSelectedItem().toString(),foto);
+        st=new Evento(0,txtFecha.getText(),txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
         try {
-            user.insertarUsuario();
+            st.insertarevento();
             JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
             //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        st = new Evento(Integer.parseInt(txtid.getText()),txtFecha.getText(),txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());
+       
+        try {
+            st.actualizarevento();
+            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            st.eliminarevento(Integer.parseInt(txtid.getText()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
@@ -506,6 +532,15 @@ public class frmEvento extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void txtFechaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaMouseReleased
+
+    private void txtFechaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseEntered
+        // TODO add your handling code here:
+        txtFecha.setToolTipText("Inserte la fecha dd/mm/yyyy");
+    }//GEN-LAST:event_txtFechaMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -545,7 +580,6 @@ public class frmEvento extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -569,6 +603,7 @@ public class frmEvento extends javax.swing.JFrame {
     private javax.swing.JTextField txtHoraF;
     private javax.swing.JTextField txtHorai;
     private javax.swing.JTextField txtLugar;
+    private javax.swing.JFormattedTextField txtid;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtnombre1;
     private javax.swing.JTextField txtnombre3;
