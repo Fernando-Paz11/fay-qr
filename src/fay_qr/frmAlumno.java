@@ -37,7 +37,7 @@ public class frmAlumno extends javax.swing.JFrame {
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);  
     }
-    FileInputStream foto;
+    //byte[] foto;
     Alumnos st=new Alumnos();
     DefaultTableModel modelo= new DefaultTableModel();
     public void cargarTabla(){
@@ -51,9 +51,10 @@ public class frmAlumno extends javax.swing.JFrame {
             // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
             modelo.addColumn("MATRICULA");
             modelo.addColumn("NOMBRE COMPLETO");
+            modelo.addColumn("CARRERA");
            
             //SE DEFINE EL ANCHO DE CADA COLUMNA
-            int[] anchos = {50, 200};
+            int[] anchos = {50, 200,200};
            
             //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
             for (int i = 0; i < tblalumno.getColumnCount(); i++) {
@@ -62,7 +63,7 @@ public class frmAlumno extends javax.swing.JFrame {
 
             while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                for (int i = 1; i < 2; i++) {
+                for (int i = 1; i < 3; i++) {
                     filas[i] = rs.getObject(i + 1);
                 }
                 modelo.addRow(filas);
@@ -424,30 +425,18 @@ public class frmAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText()+", "+txtnombre.getText()+", "+cbocarrera.getSelectedItem()).withSize(150, 150).stream();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
+        /*ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
         BufferedImage bf = null;
-        byte[] foto;
-        File ruta_img = new File("src/codigo_qr/codigo_qr.png");
-        
+        File ruta_img = new File("src/codigo_qr/codigo_qr.png");*/
+        byte[] foto = outStream.toByteArray();
         try {
-            bf = ImageIO.read(inputStream);
-            foto = Files.readAllBytes(ruta_img.toPath());
+            //bf = ImageIO.read(inputStream);
+            //foto = Files.readAllBytes(ruta_img.toPath());
             //st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         
-        File f = new File("src/codigo_qr/codigo_qr.png");
-        try {
-            ImageIO.write(bf, "png", f);
-            Thread.sleep(2000);
-            
-            ImageIcon icono = new ImageIcon(getClass().getResource("src/codigo_qr/codigo_qr.png"));
-            lblQr.setIcon(icono);
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
        try {
             st.insertarAlumno();
             

@@ -139,7 +139,7 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        query = "INSERT INTO registro_evento (id_evento, fecha, nombre, hora_inicio, hora_fin, lugar, capacidad) "
+        query = "INSERT INTO evento (id_evento, fecha, nombre, hora_inicio, hora_fin, lugar, capacidad) "
              + "VALUES ('"+(getId_evento())+"', '"+getFecha()+"', '"+ getNombre()+"', '"+ getHora_inicio()+"', '"+getHora_fin()+"', '"+getLugar() +"', '"+getCapacidad()+"');";
        
         //EJECUTAR LA CONSULTA
@@ -157,7 +157,7 @@ public class Evento {
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
         String[] registro = new String[7];
-        query = "SELECT * FROM registro_evento WHERE id_evento ='" + id_evento + "'";
+        query = "SELECT * FROM evento WHERE id_evento ='" + id_evento + "'";
        
         //System.out.println(query);
         try{
@@ -186,15 +186,15 @@ public class Evento {
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
-        query="UPDATE registro_evento\n" +
-                " clave='"+getId_evento()+"'," +
-                " SET nombre_completo='"+getFecha()+"'," +
-                " tipo_usuario='"+getNombre()+"'," +
-                " telefono='"+getHora_inicio()+"'," +
-                " correo='"+getHora_fin()+"'," +
-                " contrseña='"+getLugar()+"'," +
-                " WHERE id_evento="+getCapacidad()+";";
-       
+        query="UPDATE evento \n" +
+                " SET id_evento='"+getId_evento()+"'," +
+                " fecha='"+getFecha()+"'," +
+                " nombre='"+getNombre()+"'," +
+                " hora_inicio='"+getHora_inicio()+"'," +
+                " hora_fin='"+getHora_fin()+"'," +
+                " lugar='"+getLugar()+"'," +
+                " capacidad='"+getCapacidad()+"'," +
+                " WHERE id_evento="+getId_evento()+";";
          try{
             sql.execute(query);
             respuesta = true;
@@ -212,7 +212,7 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        String query="DELETE FROM registro_evento WHERE id_evento="+id_evento+";";
+        String query="DELETE FROM evento WHERE id_evento="+id_evento+";";
        
         try{            
             sql.execute(query);
@@ -226,13 +226,13 @@ public class Evento {
         return respuesta;
     } 
     
-    //Metodo para buscar un registrodevuelve un resulset
+    //Metodo para buscar un registro devuelve un resulset
     public ResultSet buscareventoRS(int id_evento) throws SQLException {
         String query;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         ResultSet rs=null;
-        query = "SELECT * FROM registro_evento WHERE id_evento ='" + id_evento + "'";
+        query = "SELECT * FROM evento WHERE id_evento ='" + id_evento + "'";
        
         //System.out.println(query);
         try{
@@ -244,21 +244,6 @@ public class Evento {
         conBD.desconectar();
         return rs;
     }
-  /*  public int validarUsuario(String usuario, String contraseña) throws SQLException{
-        int id=0;
-        conBD.conectar();
-        Statement sql=conBD.smtSQL();
-        ResultSet rs=null;
-        String query="SELECT id_usuario FROM registro_usuario WHERE usuario =? AND contraseña=?";
-        try{
-            rs=sql.executeQuery(query);
-            id=rs.getInt("id_usuario");
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return id;
-    }*/
    
     //Metodo para inicializar a id_usuario
     public boolean autonumericoIdevento() throws SQLException{
@@ -266,7 +251,7 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        String query="ALTER TABLE registro_evento AUTO_INCREMENT=1;";
+        String query="ALTER TABLE evento AUTO_INCREMENT=1;";
         //System.out.println(query);
         try{            
             sql.execute(query);
@@ -282,7 +267,7 @@ public class Evento {
     //Metodo para mostrar registros
     private List<String[]> consultarevento() {
         List<String[]> evento = new ArrayList<>();
-        String query = "SELECT * FROM registro_evento";
+        String query = "SELECT * FROM evento";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
        
@@ -307,7 +292,7 @@ public class Evento {
     }
    
     public ResultSet consultareventoRS() {
-        String query = "SELECT * FROM registro_evento";
+        String query = "SELECT * FROM evento";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
        

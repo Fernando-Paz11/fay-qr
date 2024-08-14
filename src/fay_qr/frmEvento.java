@@ -5,11 +5,15 @@
 package fay_qr;
 
 import clases.Evento;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,15 +32,49 @@ public class frmEvento extends javax.swing.JFrame {
         
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
-        txtFecha.setText(FechaParaMi());
+        
     }
     Evento st=new Evento();
+    DefaultTableModel modelo= new DefaultTableModel();
     public String FechaParaMi(){
         Date fecha=new Date();
-        SimpleDateFormat FechaAct = new SimpleDateFormat("dd/MM/yyyy");
-        
+        SimpleDateFormat FechaAct = new SimpleDateFormat("dd/MM/yyyy");  
         return FechaAct.format(fecha);
     }
+    public void cargarTabla(){
+          try {
+            tblEvento.setModel(modelo);
+            ResultSet rs = null;
+            rs = st.consultareventoRS();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+           
+            // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+            modelo.addColumn("FECHA");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("HORA INICIO");
+            modelo.addColumn("HORA FIN");
+            modelo.addColumn("LUGAR");
+           
+            //SE DEFINE EL ANCHO DE CADA COLUMNA
+            int[] anchos = {50,50,50,50};
+           
+            //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
+            for (int i = 0; i < tblEvento.getColumnCount(); i++) {
+                tblEvento.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+            while (rs.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+                for (int i = 1; i < 4; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +97,6 @@ public class frmEvento extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtHorai = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -69,6 +106,9 @@ public class frmEvento extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtCapacidad = new javax.swing.JTextField();
         txtid = new javax.swing.JFormattedTextField();
+        txtFecha = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEvento = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -180,22 +220,6 @@ public class frmEvento extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(28, 21, 20));
         jLabel4.setText("Fecha:");
 
-        txtFecha.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        txtFecha.setForeground(new java.awt.Color(51, 51, 51));
-        txtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtFechaMouseEntered(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtFechaMouseReleased(evt);
-            }
-        });
-        txtFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(28, 21, 20));
         jLabel6.setText("Hora Inicio:");
@@ -246,40 +270,58 @@ public class frmEvento extends javax.swing.JFrame {
 
         txtid.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
+        txtFecha.setDateFormatString("yyyy-MM-dd");
+
+        tblEvento.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEventoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblEvento);
+
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
             pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8))
-                .addGap(26, 26, 26)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
+                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtLugar, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addGap(26, 26, 26)
+                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLugar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(114, 114, 114)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                            .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
-                        .addGap(95, 95, 95))
-                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                            .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(84, 84, 84)
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addGap(95, 95, 95)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -296,11 +338,12 @@ public class frmEvento extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel9)
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -311,6 +354,8 @@ public class frmEvento extends javax.swing.JFrame {
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -419,7 +464,8 @@ public class frmEvento extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        st=new Evento(0,txtFecha.getText(),txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
+        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
+        st=new Evento(0,fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
         try {
             st.insertarevento();
             JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
@@ -431,7 +477,8 @@ public class frmEvento extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        st = new Evento(Integer.parseInt(txtid.getText()),txtFecha.getText(),txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());
+        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
+        st = new Evento(Integer.parseInt(txtid.getText()),fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());
        
         try {
             st.actualizarevento();
@@ -457,10 +504,6 @@ public class frmEvento extends javax.swing.JFrame {
     private void txtnombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombre1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombre1ActionPerformed
-
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaActionPerformed
 
     private void txtnombre3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombre3ActionPerformed
         // TODO add your handling code here:
@@ -532,14 +575,29 @@ public class frmEvento extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu6MouseClicked
 
-    private void txtFechaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseReleased
+    private void tblEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEventoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaMouseReleased
-
-    private void txtFechaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseEntered
-        // TODO add your handling code here:
-        txtFecha.setToolTipText("Inserte la fecha dd/mm/yyyy");
-    }//GEN-LAST:event_txtFechaMouseEntered
+        try {
+            int Fila = tblEvento.getSelectedRow();
+            int id_evento = Integer.parseInt(tblEvento.getValueAt(Fila, 0).toString());
+            ResultSet rs=null;
+            rs=st.buscareventoRS(id_evento);
+           
+            while (rs.next()) {
+                txtid.setText(rs.getString("id_evento"));
+                ((JTextField)txtFecha.getDateEditor().getUiComponent()).setText(rs.getString("fecha"));
+                txtnombre.setText(rs.getString("nombre"));
+                txtHorai.setText(rs.getString("hora_inicio"));
+                txtHoraF.setText(rs.getString("hora_fin"));
+                txtLugar.setText(rs.getString("lugar"));
+                txtCapacidad.setText(rs.getString("capacidad"));
+                
+                //System.out.println(rs.getString("tipo_usuario"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }     
+    }//GEN-LAST:event_tblEventoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -591,6 +649,7 @@ public class frmEvento extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnAcercade;
     private javax.swing.JMenu mnAlumno;
     private javax.swing.JMenu mnAsistencias;
@@ -598,8 +657,9 @@ public class frmEvento extends javax.swing.JFrame {
     private javax.swing.JMenu mnOrganizador;
     private javax.swing.JMenu mnSalir;
     private javax.swing.JPanel pnlBienvenida;
+    private javax.swing.JTable tblEvento;
     private javax.swing.JTextField txtCapacidad;
-    private javax.swing.JTextField txtFecha;
+    private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtHoraF;
     private javax.swing.JTextField txtHorai;
     private javax.swing.JTextField txtLugar;

@@ -31,7 +31,7 @@ public class Alumnos {
     private String telefono;
     private String correo;
     private String carrera;
-    private FileInputStream foto;
+    private byte foto;
     
     Conexion conBD= new Conexion("localhost", "root", "","bd_fayqr");
     
@@ -48,7 +48,7 @@ public class Alumnos {
     }
    
     //Constrluctor que recibe parametros
-    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,FileInputStream foto){
+    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,byte foto){
         
         this.id_alumno=id_alumno;
         this.matricula=matricula;
@@ -60,7 +60,7 @@ public class Alumnos {
     }
    
     //TAREA HACER SETs/GETs
-    public void setIdUsuario(int id_alumno){
+    public void setIdAlumno(int id_alumno){
            this.id_alumno=id_alumno;
     }
     
@@ -109,11 +109,11 @@ public class Alumnos {
         return this.carrera;
     }
    
-    public FileInputStream getFoto() {
+    public byte getFoto() {
         return foto;
     }
 
-    public void setFoto(FileInputStream foto) {
+    public void setFoto(byte foto) {
         this.foto = foto;
     }
    
@@ -135,7 +135,7 @@ public class Alumnos {
     }
    
     //Metodo para buscar un registro
-     public String[] buscarUsuario(String matricula) throws SQLException {
+     public String[] buscarAlumno(String matricula) throws SQLException {
         String query;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
@@ -153,6 +153,7 @@ public class Alumnos {
                 registro[3] = rs.getString("correo");
                 registro[4] = rs.getString("telefono");
                 registro[5] = rs.getString("carrera");
+                registro[6] = rs.getString("foto");
             }
            
         }catch (SQLException e) {
@@ -164,7 +165,7 @@ public class Alumnos {
     }
 
     //Metodo para actualizar un usuario
-    public boolean actualizarUsuario() throws SQLException{
+    public boolean actualizarAlumno() throws SQLException{
         String query;
         boolean respuesta=false;
         conBD.conectar();
@@ -175,7 +176,8 @@ public class Alumnos {
                 " correo'"+getCorreo()+"'," +
                 " telefono='"+getTelefono()+"'," +
                 " contrseña='"+getCarrera()+"'," +
-                " WHERE id_usuario="+getIdAlumno()+";";
+                " foto='"+getFoto()+"'," +
+                " WHERE id_alumno="+getIdAlumno()+";";
        
          try{
             sql.execute(query);
@@ -189,7 +191,7 @@ public class Alumnos {
     }
    
     //Metodo para eliminar un usuario
-    public boolean eliminarUsuario(int id_alumno) throws SQLException{
+    public boolean eliminarAlumno(int id_alumno) throws SQLException{
         boolean respuesta;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
@@ -248,7 +250,7 @@ public class Alumnos {
    
     //Metodo para mostrar registros
     private List<String[]> consultarAlumno() {
-        List<String[]> alumnos = new ArrayList<>();
+        List<String[]> alumno = new ArrayList<>();
         String query = "SELECT * FROM alumno";
         conBD.conectar();
         Statement sql=conBD.smtSQL(); //variable que permitira ejecutar una consulta
@@ -257,16 +259,15 @@ public class Alumnos {
             ResultSet rs = sql.executeQuery(query); //resulset es para variables que almaceanaran un conjunto de registros
             while (rs.next()) {
                 String[] registros = new String[6];
-                registros[0] = rs.getString("id_alumno");
+                
                 registros[1] = rs.getString("matricula");
                 registros[2] = rs.getString("nombre_completo");
-                registros[3] = rs.getString("correo");
-                registros[4] = rs.getString("telefono");
+                
                 registros[5] = rs.getString("carrera");
-                registros[6] = rs.getString("foto");
-                alumnos.add(registros);
+                
+                alumno.add(registros);
             }
-            return alumnos;  
+            return alumno;  
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
            return null;
@@ -287,10 +288,10 @@ public class Alumnos {
     }
    
     //METODO MOSTRAR TABLA DE USUARIOS
-    public void mostrarUsuarios() {                                                  
+    public void mostrarAlumno() {                                                  
         List<String[]> alumnos = consultarAlumno();
         for (String[] data : alumnos) {
-             System.out.print(data[0] + " , " + data[1]+ " , " + data[2]+ " , " + data[3]+ " , " + data[4]+ " , " + data[5]+" , " + data[6]+"\n");
+             System.out.print(data[1]+ " , " + data[2]+ " , " + data[6]+"\n");
         }  
     }
 }
