@@ -66,13 +66,13 @@ public class frmLogin extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JTextField();
         txtSalir = new javax.swing.JButton();
         lblUser = new javax.swing.JLabel();
         lblpass = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtContraseña = new javax.swing.JPasswordField();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,9 +113,6 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 18, 145, 33));
 
-        txtContraseña.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 160, -1));
-
         txtSalir.setBackground(new java.awt.Color(39, 137, 202));
         txtSalir.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         txtSalir.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,6 +150,9 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 180, -1));
+
+        txtContraseña.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 160, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 340, 330));
 
@@ -264,7 +264,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblpass;
-    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JButton txtSalir;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

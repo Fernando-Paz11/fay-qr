@@ -359,6 +359,7 @@ public class frmOrganizador extends javax.swing.JFrame {
 
         jMenu6.setText("|                                                                                                                          |");
         jMenu6.setEnabled(false);
+        jMenu6.setPreferredSize(new java.awt.Dimension(350, 27));
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu6MouseClicked(evt);

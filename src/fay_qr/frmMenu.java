@@ -125,7 +125,7 @@ public class frmMenu extends javax.swing.JFrame {
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addGap(199, 199, 199)
                         .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -200,6 +200,7 @@ public class frmMenu extends javax.swing.JFrame {
 
         jMenu6.setText("|                                                                                                                          |");
         jMenu6.setEnabled(false);
+        jMenu6.setPreferredSize(new java.awt.Dimension(350, 27));
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu6MouseClicked(evt);

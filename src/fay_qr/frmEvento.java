@@ -310,7 +310,7 @@ public class frmEvento extends javax.swing.JFrame {
                                 .addGap(114, 114, 114)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
                             .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,6 +419,7 @@ public class frmEvento extends javax.swing.JFrame {
 
         jMenu6.setText("|                                                                                                                          |");
         jMenu6.setEnabled(false);
+        jMenu6.setPreferredSize(new java.awt.Dimension(350, 27));
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu6MouseClicked(evt);

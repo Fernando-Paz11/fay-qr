@@ -72,12 +72,12 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtcorreo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtcontraseña = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtvalidarcontraseña = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         cbotipo = new javax.swing.JComboBox<>();
+        txtcontraseña = new javax.swing.JPasswordField();
+        txtvalidarcontraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FAY-QR");
@@ -166,15 +166,9 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(28, 21, 20));
         jLabel8.setText("Contraseña:");
 
-        txtcontraseña.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        txtcontraseña.setForeground(new java.awt.Color(51, 51, 51));
-
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(28, 21, 20));
         jLabel9.setText("Validar contraseña:");
-
-        txtvalidarcontraseña.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        txtvalidarcontraseña.setForeground(new java.awt.Color(51, 51, 51));
 
         btnRegistrar.setBackground(new java.awt.Color(65, 109, 214));
         btnRegistrar.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
@@ -218,28 +212,26 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
                                 .addGap(33, 33, 33)
                                 .addComponent(txttelefono))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel9))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtnombrecompleto)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtnombrecompleto)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtclave, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .addComponent(txtvalidarcontraseña))))
+                                .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtvalidarcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(270, 270, 270))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -269,8 +261,8 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
+                    .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtvalidarcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -374,11 +366,11 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtclave;
-    private javax.swing.JTextField txtcontraseña;
+    private javax.swing.JPasswordField txtcontraseña;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombrecompleto;
     private javax.swing.JTextField txttelefono;
     private javax.swing.JTextField txtusuario;
-    private javax.swing.JTextField txtvalidarcontraseña;
+    private javax.swing.JPasswordField txtvalidarcontraseña;
     // End of variables declaration//GEN-END:variables
 }
