@@ -26,13 +26,11 @@ public class frmEvento extends javax.swing.JFrame {
      */
     public frmEvento() {
         initComponents();
-        
          //icono
         setIconImage(new ImageIcon(getClass().getResource("/img/icono_fayqr.png")).getImage());
-        
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
-        
+        cargarTabla();
     }
     Evento st=new Evento();
     DefaultTableModel modelo= new DefaultTableModel();
@@ -50,14 +48,15 @@ public class frmEvento extends javax.swing.JFrame {
             int cantidadColumnas = rsMd.getColumnCount();
            
             // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+            modelo.addColumn("");
             modelo.addColumn("FECHA");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("HORA INICIO");
             modelo.addColumn("HORA FIN");
             modelo.addColumn("LUGAR");
-           
+            modelo.addColumn("CAPACIDAD");
             //SE DEFINE EL ANCHO DE CADA COLUMNA
-            int[] anchos = {50,50,50,50};
+            int[] anchos = {0,50,50,50,50,50,50};
            
             //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
             for (int i = 0; i < tblEvento.getColumnCount(); i++) {
@@ -65,7 +64,7 @@ public class frmEvento extends javax.swing.JFrame {
             }
             while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                for (int i = 1; i < 4; i++) {
+                for (int i = 0; i < cantidadColumnas; i++) {
                     filas[i] = rs.getObject(i + 1);
                 }
                 modelo.addRow(filas);
@@ -311,7 +310,7 @@ public class frmEvento extends javax.swing.JFrame {
                                 .addGap(114, 114, 114)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                             .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -591,8 +590,6 @@ public class frmEvento extends javax.swing.JFrame {
                 txtHoraF.setText(rs.getString("hora_fin"));
                 txtLugar.setText(rs.getString("lugar"));
                 txtCapacidad.setText(rs.getString("capacidad"));
-                
-                //System.out.println(rs.getString("tipo_usuario"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());

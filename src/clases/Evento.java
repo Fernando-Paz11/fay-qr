@@ -187,8 +187,7 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         query="UPDATE evento \n" +
-                " SET id_evento='"+getId_evento()+"'," +
-                " fecha='"+getFecha()+"'," +
+                " SET fecha='"+getFecha()+"'," +
                 " nombre='"+getNombre()+"'," +
                 " hora_inicio='"+getHora_inicio()+"'," +
                 " hora_fin='"+getHora_fin()+"'," +

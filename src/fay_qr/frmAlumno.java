@@ -5,6 +5,7 @@
 package fay_qr;
 
 import clases.Alumnos;
+import clases.Evento;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 import net.glxn.qrgen.QRCode;//Genera el codigo
 
 
@@ -35,9 +37,11 @@ public class frmAlumno extends javax.swing.JFrame {
          //icono
         setIconImage(new ImageIcon(getClass().getResource("/img/icono_fayqr.png")).getImage());
         //poner la ventana en el centro
-        this.setLocationRelativeTo(null);  
+        this.setLocationRelativeTo(null);
+        cargarTabla();
     }
     //byte[] foto;
+    FileInputStream foto;
     Alumnos st=new Alumnos();
     DefaultTableModel modelo= new DefaultTableModel();
     public void cargarTabla(){
@@ -49,12 +53,13 @@ public class frmAlumno extends javax.swing.JFrame {
             int cantidadColumnas = rsMd.getColumnCount();
            
             // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+            modelo.addColumn("");
             modelo.addColumn("MATRICULA");
             modelo.addColumn("NOMBRE COMPLETO");
             modelo.addColumn("CARRERA");
            
             //SE DEFINE EL ANCHO DE CADA COLUMNA
-            int[] anchos = {50, 200,200};
+            int[] anchos = {0,50, 100,100};
            
             //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
             for (int i = 0; i < tblalumno.getColumnCount(); i++) {
@@ -63,7 +68,7 @@ public class frmAlumno extends javax.swing.JFrame {
 
             while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                for (int i = 1; i < 3; i++) {
+                for (int i = 0; i < 4; i++) {
                     filas[i] = rs.getObject(i + 1);
                 }
                 modelo.addRow(filas);
@@ -222,7 +227,6 @@ public class frmAlumno extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(28, 21, 20));
         jLabel8.setText("Carrera:");
 
-        tblalumno.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
         tblalumno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -428,11 +432,11 @@ public class frmAlumno extends javax.swing.JFrame {
         /*ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());    
         BufferedImage bf = null;
         File ruta_img = new File("src/codigo_qr/codigo_qr.png");*/
-        byte[] foto = outStream.toByteArray();
+        //byte[] foto = outStream.toByteArray();
         try {
             //bf = ImageIO.read(inputStream);
             //foto = Files.readAllBytes(ruta_img.toPath());
-            //st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+            st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -450,6 +454,14 @@ public class frmAlumno extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        st=new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+       
+        try {
+            st.actualizarAlumno();
+            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed

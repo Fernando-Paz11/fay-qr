@@ -419,10 +419,8 @@ public class frmOrganizador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        
-        st = new Organizador(Integer.parseInt(txtId.getText()),txtnombre.getText(),txtpuesto.getText(),txtclave.getText(),txtcorreo.getText(),txttelefono.getText());
-       
+        // TODO add your handling code here
+        st = new Organizador(Integer.parseInt(txtId.getText()),txtnombre.getText(),txtpuesto.getText(),txtclave.getText(),txtcorreo.getText(),txttelefono.getText()); 
         try {
             st.actualizarorganizador();
             JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
@@ -493,11 +491,11 @@ public class frmOrganizador extends javax.swing.JFrame {
     private void tblorganizadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblorganizadorMouseClicked
         // TODO add your handling code here:
          try {
-             
             int Fila = tblorganizador.getSelectedRow();
             int id_organizador = Integer.parseInt(tblorganizador.getValueAt(Fila, 0).toString());
             ResultSet rs=null;
             rs=st.buscarOrganizadorRS(id_organizador);
+            
             while (rs.next()) {
                 txtId.setText(rs.getString("id_organizador"));
                 txtnombre.setText(rs.getString("nombre"));

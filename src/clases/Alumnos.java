@@ -31,7 +31,7 @@ public class Alumnos {
     private String telefono;
     private String correo;
     private String carrera;
-    private byte foto;
+    private FileInputStream foto;
     
     Conexion conBD= new Conexion("localhost", "root", "","bd_fayqr");
     
@@ -48,7 +48,7 @@ public class Alumnos {
     }
    
     //Constrluctor que recibe parametros
-    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,byte foto){
+    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,FileInputStream foto){
         
         this.id_alumno=id_alumno;
         this.matricula=matricula;
@@ -109,11 +109,11 @@ public class Alumnos {
         return this.carrera;
     }
    
-    public byte getFoto() {
+    public FileInputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(byte foto) {
+    public void setFoto(FileInputStream foto) {
         this.foto = foto;
     }
    
@@ -171,8 +171,8 @@ public class Alumnos {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         query="UPDATE alumno\n" +
-                " matricula='"+getMatricula()+"'," +
-                " SET nombre_completo='"+getNombreCompleto()+"'," +
+                " SET matricula='"+getMatricula()+"'," +
+                " nombre_completo='"+getNombreCompleto()+"'," +
                 " correo'"+getCorreo()+"'," +
                 " telefono='"+getTelefono()+"'," +
                 " contrseña='"+getCarrera()+"'," +
