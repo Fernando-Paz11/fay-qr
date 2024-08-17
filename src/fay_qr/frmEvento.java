@@ -142,6 +142,7 @@ public class frmEvento extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FAY-QR");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -313,12 +314,15 @@ public class frmEvento extends javax.swing.JFrame {
                                 .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
                             .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                                .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                        .addComponent(txtHorai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(84, 84, 84)
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane1))
                 .addGap(95, 95, 95)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,9 +334,9 @@ public class frmEvento extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(16, 16, 16)
                 .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -462,45 +466,6 @@ public class frmEvento extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnAlumnoActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
-        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
-        st=new Evento(0,fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
-        try {
-            st.insertarevento();
-            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage());
-            //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
-        st = new Evento(Integer.parseInt(txtid.getText()),fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());
-       
-        try {
-            st.actualizarevento();
-            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
-        } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        try {
-            st.eliminarevento(Integer.parseInt(txtid.getText()));
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombreActionPerformed
-
     private void txtnombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombre1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombre1ActionPerformed
@@ -508,22 +473,6 @@ public class frmEvento extends javax.swing.JFrame {
     private void txtnombre3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombre3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombre3ActionPerformed
-
-    private void txtHoraiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraiActionPerformed
-
-    private void txtHoraFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraFActionPerformed
-
-    private void txtLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLugarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLugarActionPerformed
-
-    private void txtCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapacidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCapacidadActionPerformed
 
     private void mnAcercadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnAcercadeMouseClicked
         // TODO add your handling code here:
@@ -582,7 +531,7 @@ public class frmEvento extends javax.swing.JFrame {
             int id_evento = Integer.parseInt(tblEvento.getValueAt(Fila, 0).toString());
             ResultSet rs=null;
             rs=st.buscareventoRS(id_evento);
-           
+
             while (rs.next()) {
                 txtid.setText(rs.getString("id_evento"));
                 ((JTextField)txtFecha.getDateEditor().getUiComponent()).setText(rs.getString("fecha"));
@@ -594,8 +543,63 @@ public class frmEvento extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
-        }     
+        }
     }//GEN-LAST:event_tblEventoMouseClicked
+
+    private void txtCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapacidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCapacidadActionPerformed
+
+    private void txtLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLugarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLugarActionPerformed
+
+    private void txtHoraFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHoraFActionPerformed
+
+    private void txtHoraiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHoraiActionPerformed
+
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnombreActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            st.eliminarevento(Integer.parseInt(txtid.getText()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
+        st = new Evento(Integer.parseInt(txtid.getText()),fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());
+
+        try {
+            st.actualizarevento();
+            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
+        st=new Evento(0,fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
+        try {
+            st.insertarevento();
+            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+            //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -295,17 +295,39 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombrecompletoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        user = new Usuario(0,txtclave.getText(),txtnombrecompleto.getText(),txtusuario.getText(),cbotipo.getSelectedItem().toString(),txtcorreo.getText(),txttelefono.getText(),txtcontraseña.getText());
+        String clave = txtclave.getText();
+        String nombreCompleto = txtnombrecompleto.getText();
+        String usuario = txtusuario.getText();
+        String tipo = cbotipo.getSelectedItem().toString();
+        String correo = txtcorreo.getText();
+        String telefono = txttelefono.getText();
+        String cont = new String(txtcontraseña.getPassword());
+        String vcont = new String(txtvalidarcontraseña.getPassword());
+
+        String regexClave = "\\d{8}";
+        String regexTelefono = "\\d{10,12}";
+
+        if (clave.isEmpty() || nombreCompleto.isEmpty() || usuario.isEmpty() || tipo.isEmpty() || correo.isEmpty() || telefono.isEmpty() || cont.isEmpty() || vcont.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+        } else if (!clave.matches(regexClave)) {
+            JOptionPane.showMessageDialog(null, "La clave debe contener exactamente 8 dígitos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+        } else if (!telefono.matches(regexTelefono)) {
+            JOptionPane.showMessageDialog(null, "El teléfono debe contener entre 10 y 12 dígitos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+        } else if (!cont.equals(vcont)) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+        } else {
+            user = new Usuario(0, clave, nombreCompleto, usuario, tipo, correo, telefono, cont);
         try {
             user.insertarUsuario();
-            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
-            frmLogin login =new  frmLogin();
+            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            frmLogin login = new frmLogin();
             login.setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
             //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
+}
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

@@ -60,6 +60,7 @@ public class frmCreadores extends javax.swing.JFrame {
         jLabel4.setText("¡Hola! Disfruta de esta experiencia");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FAY-QR");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

@@ -76,7 +76,7 @@ public class frmLogin extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Inicio Sesión");
+        setTitle("FAY-QR");
         setBackground(new java.awt.Color(56, 110, 255));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,6 +159,9 @@ public class frmLogin extends javax.swing.JFrame {
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.jpg"))); // NOI18N
         lblFondo.setPreferredSize(new java.awt.Dimension(500, 400));
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getAccessibleContext().setAccessibleName("FAY QR");
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

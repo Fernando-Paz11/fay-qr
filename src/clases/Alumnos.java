@@ -31,24 +31,23 @@ public class Alumnos {
     private String telefono;
     private String correo;
     private String carrera;
-    private FileInputStream foto;
+    //private FileInputStream foto;
+    private byte[] foto;
     
     Conexion conBD= new Conexion("localhost", "root", "","bd_fayqr");
     
     //Constructor por defecto
-    public Alumnos(){
-       
+    public Alumnos(){    
         this.id_alumno=0;
         this.matricula="";
         this.nombre_completo="";
         this.telefono="";
         this.correo="";
-        this.carrera="";
-       
+        this.carrera="";     
     }
    
     //Constrluctor que recibe parametros
-    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,FileInputStream foto){
+    public Alumnos(int id_alumno,String matricula,String nombre_completo,String correo,String telefono,String carrera,byte[] foto){
         
         this.id_alumno=id_alumno;
         this.matricula=matricula;
@@ -109,11 +108,18 @@ public class Alumnos {
         return this.carrera;
     }
    
-    public FileInputStream getFoto() {
+    /*public FileInputStream getFoto() {
         return foto;
     }
 
     public void setFoto(FileInputStream foto) {
+        this.foto = foto;
+    }*/
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
    
@@ -123,18 +129,19 @@ public class Alumnos {
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
-        query = "INSERT INTO alumno (matricula, nombre_completo, correo, telefono, carrera,foto) "
-           + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"''"+getFoto()+"');";
-       
+        query = "INSERT INTO alumno (matricula, nombre_completo, correo, telefono, carrera, foto) "
+           + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"', '"+getFoto()+"');";
+        System.out.println(query);
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
             respuesta= true;
+            System.out.println(query);
         }
         conBD.desconectar();
         return respuesta;
     }
    
-    //Metodo para buscar un registro
+    //Metodo para buscar un regist
      public String[] buscarAlumno(String matricula) throws SQLException {
         String query;
         conBD.conectar();
@@ -171,13 +178,13 @@ public class Alumnos {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
         query="UPDATE alumno\n" +
-                " SET matricula='"+getMatricula()+"'," +
-                " nombre_completo='"+getNombreCompleto()+"'," +
-                " correo'"+getCorreo()+"'," +
-                " telefono='"+getTelefono()+"'," +
-                " contrseña='"+getCarrera()+"'," +
-                " foto='"+getFoto()+"'," +
-                " WHERE id_alumno="+getIdAlumno()+";";
+                " SET matricula = '"+getMatricula()+"'," +
+                " nombre_completo = '"+getNombreCompleto()+"'," +
+                " correo = '"+getCorreo()+"'," +
+                " telefono = '"+getTelefono()+"'," +
+                " contrseña = '"+getCarrera()+"'," +
+                " WHERE id_alumno = "+getIdAlumno()+";";
+        System.out.println(query);
        
          try{
             sql.execute(query);
