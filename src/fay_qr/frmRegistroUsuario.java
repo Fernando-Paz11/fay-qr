@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 
 
 /**
@@ -295,39 +296,80 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombrecompletoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        String clave = txtclave.getText();
-        String nombreCompleto = txtnombrecompleto.getText();
-        String usuario = txtusuario.getText();
-        String tipo = cbotipo.getSelectedItem().toString();
+        txtclave.setName("Clave");
+        txtnombrecompleto.setName("Nombre");
+        txtusuario.setName("Usuario");
+        cbotipo.setName("Tipo de Usuario");
+        txtcorreo.setName("Correo");
+        txttelefono.setName("Teléfono");
+        txtcontraseña.setName("Contraseña");
+        txtvalidarcontraseña.setName("Validar contraseña");
+
+        // Crear un arreglo de campos de texto
+        JTextField[] campos = {txtclave, txtnombrecompleto, txtusuario, txtcorreo, txttelefono, txtcontraseña, txtvalidarcontraseña};
+
+        // Validar los campos de texto
+        for (JTextField campo : campos) {
+            if (campo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo '" + campo.getName() + "' es obligatorio");
+            campo.requestFocus();
+            return;
+            }
+        }
+
+        // Verificar que los campos tengan el formato correcto
+        if (!txtnombrecompleto.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre Completo' solo debe contener letras");
+            txtnombrecompleto.requestFocus();
+            return;
+        }
+
+        if (!txtusuario.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Usuario' solo debe contener letras");
+            txtusuario.requestFocus();
+            return;
+        }
+
+        if (!txtclave.getText().matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Clave' debe contener 8 dígitos");
+            txtclave.requestFocus();
+            return;
+        }
+
+        if (!txttelefono.getText().matches("\\d{10,12}")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Teléfono' debe contener entre 10 y 12 dígitos");
+            txttelefono.requestFocus();
+            return;
+        }
+
+        // Verificar que el correo electrónico tenga un formato válido
         String correo = txtcorreo.getText();
-        String telefono = txttelefono.getText();
+        if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Correo' no tiene un formato válido");
+            txtcorreo.requestFocus();
+            return;
+        }
+
+        // Verificar que las contraseñas sean iguales
         String cont = new String(txtcontraseña.getPassword());
         String vcont = new String(txtvalidarcontraseña.getPassword());
+        if (!cont.equals(vcont)) {
+            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+            txtcontraseña.requestFocus();
+        return;
+        }
 
-        String regexClave = "\\d{8}";
-        String regexTelefono = "\\d{10,12}";
-
-        if (clave.isEmpty() || nombreCompleto.isEmpty() || usuario.isEmpty() || tipo.isEmpty() || correo.isEmpty() || telefono.isEmpty() || cont.isEmpty() || vcont.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, rellena todos los campos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-        } else if (!clave.matches(regexClave)) {
-            JOptionPane.showMessageDialog(null, "La clave debe contener exactamente 8 dígitos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-        } else if (!telefono.matches(regexTelefono)) {
-            JOptionPane.showMessageDialog(null, "El teléfono debe contener entre 10 y 12 dígitos", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-        } else if (!cont.equals(vcont)) {
-            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-        } else {
-            user = new Usuario(0, clave, nombreCompleto, usuario, tipo, correo, telefono, cont);
+        // Si todos los campos están llenos y válidos, continuar con la operación
+        user = new Usuario(0, txtclave.getText(), txtnombrecompleto.getText(), txtusuario.getText(), cbotipo.getSelectedItem().toString(), txtcorreo.getText(), txttelefono.getText(), cont);
         try {
             user.insertarUsuario();
-            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.", "WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
             frmLogin login = new frmLogin();
             login.setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-            //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
