@@ -207,9 +207,19 @@ public class frmAlumno extends javax.swing.JFrame {
 
         txttelefono.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         txttelefono.setForeground(new java.awt.Color(51, 51, 51));
+        txttelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txttelefonoMouseEntered(evt);
+            }
+        });
 
         txtcorreo.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         txtcorreo.setForeground(new java.awt.Color(51, 51, 51));
+        txtcorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtcorreoMouseEntered(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(28, 21, 20));
@@ -221,6 +231,11 @@ public class frmAlumno extends javax.swing.JFrame {
 
         txtmatricula.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         txtmatricula.setForeground(new java.awt.Color(51, 51, 51));
+        txtmatricula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtmatriculaMouseEntered(evt);
+            }
+        });
         txtmatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtmatriculaActionPerformed(evt);
@@ -441,15 +456,63 @@ public class frmAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-        ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText() + ", " + txtnombre.getText() + ", " + cbocarrera.getSelectedItem()).withSize(150, 150).stream();
-        foto = outStream.toByteArray();
+        // Verificar que todos los campos estén llenos
+        if (txtmatricula.getText().isEmpty() || txtnombre.getText().isEmpty() || txtcorreo.getText().isEmpty() || txttelefono.getText().isEmpty() || cbocarrera.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que la matrícula tenga exactamente 8 dígitos y sean solo números
+        if (txtmatricula.getText().length() != 8 || !txtmatricula.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "La matrícula debe tener exactamente 8 números", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtmatricula.requestFocus();
+            return;
+        }
+
+        // Verificar que el teléfono tenga entre 10 y 11 dígitos y sean solo números
+        if (txttelefono.getText().length() < 10 || txttelefono.getText().length() > 12 || !txttelefono.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El teléfono debe tener entre 10 y 12 números", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txttelefono.requestFocus();
+            return;
+        }
+
+        // Verificar que el nombre solo contenga letras
+        if (!txtnombre.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El nombre debe contener solo letras", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtnombre.requestFocus();
+            return;
+        }
+
+        // Verificar que el combo box tenga un valor seleccionado
+        if (cbocarrera.getSelectedItem() == null || cbocarrera.getSelectedItem().toString().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione una carrera", "ERROR", JOptionPane.ERROR_MESSAGE);
+            cbocarrera.requestFocus();
+          return;
+        }
+
+        // Crear máscara de entrada para el correo electrónico
+        String correoPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        if (!txtcorreo.getText().matches(correoPattern)) {
+            JOptionPane.showMessageDialog(null, "El correo electrónico no es válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtcorreo.requestFocus();
+            return;
+        }
+
+        // Generar código QR
+        if (!txtmatricula.getText().trim().isEmpty() && !txtnombre.getText().trim().isEmpty() && cbocarrera.getSelectedItem() != null) {
+            ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText() + ", " + txtnombre.getText() + ", " + (String) cbocarrera.getSelectedItem()).withSize(150, 150).stream();
+            foto = outStream.toByteArray();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos");
+        }
         
-        st = new Alumnos(0,txtmatricula.getText(),txtnombre.getText(),txtcorreo.getText(),txttelefono.getText(),cbocarrera.getSelectedItem().toString(),foto);
+
+        st = new Alumnos(0, txtmatricula.getText(), txtnombre.getText(), txtcorreo.getText(), txttelefono.getText(), cbocarrera.getSelectedItem().toString(), foto);
         if (st.insertarAlumno()) {
             JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.", "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo guardar el alumno.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
+        }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -541,6 +604,21 @@ public class frmAlumno extends javax.swing.JFrame {
             System.out.println(ex.toString());
         }
     }//GEN-LAST:event_tblalumnoMouseClicked
+
+    private void txtmatriculaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtmatriculaMouseEntered
+        // TODO add your handling code here:
+        txtmatricula.setToolTipText("Matricula de 8 digitos");
+    }//GEN-LAST:event_txtmatriculaMouseEntered
+
+    private void txtcorreoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtcorreoMouseEntered
+        // TODO add your handling code here:
+        txtcorreo.setToolTipText("Correo institucional");
+    }//GEN-LAST:event_txtcorreoMouseEntered
+
+    private void txttelefonoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txttelefonoMouseEntered
+        // TODO add your handling code here:
+        txttelefono.setToolTipText("Numero de teléfono");
+    }//GEN-LAST:event_txttelefonoMouseEntered
 
     /**
      * @param args the command line arguments

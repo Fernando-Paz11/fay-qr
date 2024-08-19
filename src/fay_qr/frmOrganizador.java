@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.swing.JTextField;
 
 /**
  *
@@ -137,7 +138,7 @@ public class frmOrganizador extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(28, 21, 20));
-        jLabel5.setText("Tipo usuario:");
+        jLabel5.setText("Puesto:");
 
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(28, 21, 20));
@@ -238,34 +239,32 @@ public class frmOrganizador extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(txtclave, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                        .addGap(88, 88, 88)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(227, 227, 227))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(152, 152, 152)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7))
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(24, 24, 24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                        .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBienvenidaLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(40, 40, 40)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 80, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -408,16 +407,64 @@ public class frmOrganizador extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        
-        st = new Organizador(0,txtnombre.getText(),txtpuesto.getText(),txtclave.getText(),txtcorreo.getText(),txttelefono.getText());
-        
+        txtclave.setName("Clave");
+        txtnombre.setName("Nombre");
+        txtcorreo.setName("Correo");
+        txttelefono.setName("Teléfono");
+        txtpuesto.setName("Puesto");
+        // Crear un arreglo de campos de texto
+        JTextField[] campos = {txtnombre, txtclave, txtcorreo, txtpuesto, txttelefono};
+
+        // Validar los campos de texto
+        for (JTextField campo : campos) {
+            if (campo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo '" + campo.getName() + "' es obligatorio");
+                campo.requestFocus();
+                return;
+            }
+        }
+
+        // Verificar que los campos tengan el formato correcto
+        if (!txtnombre.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' solo debe contener letras");
+            txtnombre.requestFocus();
+            return;
+        }
+
+        if (!txtpuesto.getText().matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Puesto' solo debe contener letras");
+            txtpuesto.requestFocus();
+            return;
+        }
+
+        if (!txtclave.getText().matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Clave' debe contener 8 dígitos");
+            txtclave.requestFocus();
+            return;
+        }
+
+        if (!txttelefono.getText().matches("\\d{10,11}")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Teléfono' debe contener entre 10 y 11 dígitos");
+            txttelefono.requestFocus();
+            return;
+        }
+
+        // Verificar que el correo electrónico tenga un formato válido
+        String correo = txtcorreo.getText();
+        if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+           JOptionPane.showMessageDialog(null, "El campo 'Correo' no tiene un formato válido");
+            txtcorreo.requestFocus();
+            return;
+        }
+
+        // Si todos los campos están llenos y válidos, continuar con la operación
+        st = new Organizador(0, txtnombre.getText(), txtpuesto.getText(), txtclave.getText(), txtcorreo.getText(), txttelefono.getText());
         try {
             st.insertarOrganizador();
-            JOptionPane.showMessageDialog(null, "El registro se ha organizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.", "WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
-        
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }   
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed

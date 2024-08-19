@@ -544,8 +544,12 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtFecha">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="fecha (dd/mm/yyyy)"/>
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtFechaMouseEntered"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>

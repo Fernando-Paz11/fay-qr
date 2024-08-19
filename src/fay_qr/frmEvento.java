@@ -270,7 +270,13 @@ public class frmEvento extends javax.swing.JFrame {
 
         txtid.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
+        txtFecha.setToolTipText("fecha (dd/mm/yyyy)");
         txtFecha.setDateFormatString("yyyy-MM-dd");
+        txtFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtFechaMouseEntered(evt);
+            }
+        });
 
         tblEvento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -589,17 +595,65 @@ public class frmEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
-        String fecha=((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
-        st=new Evento(0,fecha,txtnombre.getText(),txtHorai.getText(),txtHoraF.getText(),txtLugar.getText(),txtCapacidad.getText());//toString(),foto);
+        // TODO add your handling code here:}
+        // Validar fecha
+        String fecha = ((JTextField)txtFecha.getDateEditor().getUiComponent()).getText();
+        
+        txtnombre.setName("Nombre");
+        txtHorai.setName("Hora Inicio");
+        txtHoraF.setName("Hora Final");
+        txtLugar.setName("Lugar");
+        txtCapacidad.setName("Capacidad");
+        
+
+        // Validar hora inicial
+        String horaInicial = txtHorai.getText();
+        if (!horaInicial.matches("\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(null, "La hora inicial debe tener el formato 00:00");
+        return;
+        }
+
+        // Validar hora final
+        String horaFinal = txtHoraF.getText();
+        if (!horaFinal.matches("\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(null, "La hora final debe tener el formato 00:00");
+        return;
+        }
+        // Validar que la hora final sea mayor que la hora inicial
+        int horaInicialInt = Integer.parseInt(horaInicial.substring(0, 2));
+        int minutoInicialInt = Integer.parseInt(horaInicial.substring(3, 5));
+        int horaFinalInt = Integer.parseInt(horaFinal.substring(0, 2));
+        int minutoFinalInt = Integer.parseInt(horaFinal.substring(3, 5));
+        if (horaFinalInt < horaInicialInt || (horaFinalInt == horaInicialInt && minutoFinalInt <= minutoInicialInt)) {
+            JOptionPane.showMessageDialog(null, "La hora final debe ser mayor que la hora inicial");
+        return;
+        }
+        
+        // Validar los campos de texto
+        JTextField[] campos = {txtnombre, txtHorai, txtHoraF, txtLugar, txtCapacidad};
+
+        for (JTextField campo : campos) {
+            if (campo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo '" + campo.getName() + "' es obligatorio");
+                campo.requestFocus();
+            return;
+            }
+        }
+
+        // Si todos los campos están llenos, continuar con la operación
+        st = new Evento(0, fecha, txtnombre.getText(), txtHorai.getText(), txtHoraF.getText(), txtLugar.getText(), txtCapacidad.getText());
         try {
             st.insertarevento();
-            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El registro se ha guardado correctamente.", "WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,ex.getMessage());
-            //Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtFechaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseEntered
+        // TODO add your handling code here:
+        txtFecha.setToolTipText("Fecha YYYY/MM/DD");
+    }//GEN-LAST:event_txtFechaMouseEntered
 
     /**
      * @param args the command line arguments
