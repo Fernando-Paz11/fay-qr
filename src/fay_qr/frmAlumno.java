@@ -501,17 +501,33 @@ public class frmAlumno extends javax.swing.JFrame {
         // Generar código QR
         if (!txtmatricula.getText().trim().isEmpty() && !txtnombre.getText().trim().isEmpty() && cbocarrera.getSelectedItem() != null) {
             ByteArrayOutputStream outStream = QRCode.from(txtmatricula.getText() + ", " + txtnombre.getText() + ", " + (String) cbocarrera.getSelectedItem()).withSize(150, 150).stream();
-            foto = outStream.toByteArray();
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos");
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(outStream.toByteArray());
+        
+        BufferedImage bf = null;
+        try {
+            bf = ImageIO.read(inputStream);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
         }
         
-
-        st = new Alumnos(0, txtmatricula.getText(), txtnombre.getText(), txtcorreo.getText(), txttelefono.getText(), cbocarrera.getSelectedItem().toString(), foto);
-        if (st.insertarAlumno()) {
-            JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.", "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+        File f = new File("src/codigo_qr/codigo_qr.png");
+        try {
+            ImageIO.write(bf, "png", f);
+           
+            Thread.sleep(2000);
+            foto=Files.readAllBytes(f.toPath());
+            st = new Alumnos(0, txtmatricula.getText(), txtnombre.getText(), txtcorreo.getText(), txttelefono.getText(), cbocarrera.getSelectedItem().toString(), foto);
+            if (st.insertarAlumno()) {
+            
+                JOptionPane.showMessageDialog(null, "El alumno se ha guardado correctamente.", "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar el alumno.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar el alumno.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, llene todos los campos");
         }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -532,6 +548,11 @@ public class frmAlumno extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            st.eliminarAlumno(Integer.parseInt(txtid.getText()));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void mnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnSalirMouseClicked
