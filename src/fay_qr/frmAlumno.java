@@ -526,7 +526,7 @@ public class frmAlumno extends javax.swing.JFrame {
             st.actualizarAlumno();
             JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,ex.getMessage());
+            JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
