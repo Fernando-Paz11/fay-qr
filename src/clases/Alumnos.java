@@ -177,13 +177,14 @@ public class Alumnos {
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
-        query="UPDATE alumno\n" +
-                " SET matricula = '"+getMatricula()+"'," +
-                " nombre_completo = '"+getNombreCompleto()+"'," +
-                " correo = '"+getCorreo()+"'," +
-                " telefono = '"+getTelefono()+"'," +
-                " contrseña = '"+getCarrera()+"'," +
-                " WHERE id_alumno = "+getIdAlumno()+";";
+        query="UPDATE almuno\n"+
+                "SET matricula ='"+getMatricula()+"',"+
+                "nombre_completo ='"+getNombreCompleto()+"'"+
+                "correo ='"+getCorreo()+"',"+
+                "telefono ='"+getTelefono()+"',"+
+                "carrera ='"+getCarrera()+"',"+
+                "foto ='"+getFoto()+"'"+
+                "WHERE id_alumno='"+getIdAlumno()+";";
         System.out.println(query);
        
          try{

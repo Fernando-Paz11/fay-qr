@@ -194,7 +194,7 @@ public class Usuario {
                 " tipo_usuario='"+getTipoUsuario()+"'," +
                 " telefono='"+getTelefono()+"'," +
                 " correo='"+getCorreo()+"'," +
-                " contrseña='"+getContraseña()+"'," +
+                " contrseña='"+getContraseña()+"' " +
                 " WHERE id_usuario="+getIdUsuario()+";";
        
          try{

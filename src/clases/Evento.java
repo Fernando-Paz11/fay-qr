@@ -139,8 +139,8 @@ public class Evento {
         conBD.conectar();
         Statement sql=conBD.smtSQL();
        
-        query = "INSERT INTO evento (id_evento, fecha, nombre, hora_inicio, hora_fin, lugar, capacidad) "
-             + "VALUES ('"+(getId_evento())+"', '"+getFecha()+"', '"+ getNombre()+"', '"+ getHora_inicio()+"', '"+getHora_fin()+"', '"+getLugar() +"', '"+getCapacidad()+"');";
+        query = "INSERT INTO evento (fecha, nombre, hora_inicio, hora_fin, lugar, capacidad) "
+             + "VALUES ('"+getFecha()+"', '"+ getNombre()+"', '"+ getHora_inicio()+"', '"+getHora_fin()+"', '"+getLugar() +"', '"+getCapacidad()+"');";
        
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
@@ -192,8 +192,10 @@ public class Evento {
                 " hora_inicio='"+getHora_inicio()+"'," +
                 " hora_fin='"+getHora_fin()+"'," +
                 " lugar='"+getLugar()+"'," +
-                " capacidad='"+getCapacidad()+"'," +
+                " capacidad='"+getCapacidad()+"'" +
                 " WHERE id_evento="+getId_evento()+";";
+        
+        System.out.println(query);
          try{
             sql.execute(query);
             respuesta = true;

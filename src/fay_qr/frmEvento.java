@@ -588,7 +588,7 @@ public class frmEvento extends javax.swing.JFrame {
 
         try {
             st.actualizarevento();
-            JOptionPane.showMessageDialog(null, "El registro se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El evento se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
