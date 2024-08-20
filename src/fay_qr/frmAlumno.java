@@ -476,11 +476,12 @@ public class frmAlumno extends javax.swing.JFrame {
             return;
         }
 
-        // Verificar que el nombre solo contenga letras
-        if (!txtnombre.getText().matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(null, "El nombre debe contener solo letras", "ERROR", JOptionPane.ERROR_MESSAGE);
+        // Verificar que los campos tengan el formato correcto
+        if (!txtnombre.getText().matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' solo debe contener letras y espacios");
             txtnombre.requestFocus();
             return;
+        
         }
 
         // Verificar que el combo box tenga un valor seleccionado

@@ -184,7 +184,7 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
         btnSalir.setBackground(new java.awt.Color(65, 109, 214));
         btnSalir.setFont(new java.awt.Font("Berlin Sans FB", 0, 19)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Salir");
+        btnSalir.setText("Cancelar");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);

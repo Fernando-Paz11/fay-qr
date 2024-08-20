@@ -175,7 +175,7 @@ public class Organizador {
                 " puesto='"+getPuesto()+"'," +
                 " clave='"+getClave()+"'," +
                 " correo='"+getCorreo()+"'," +
-                " telefono='"+getTelefono()+"' " +
+                " telefono='"+getTelefono()+"'" +
                 " WHERE id_organizador="+getId_organizador()+";";
        
          try{

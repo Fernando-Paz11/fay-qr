@@ -31,12 +31,14 @@ public class frmEvento extends javax.swing.JFrame {
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
         cargarTabla();
+        
+        
     }
     Evento st=new Evento();
     DefaultTableModel modelo= new DefaultTableModel();
     public String FechaParaMi(){
         Date fecha=new Date();
-        SimpleDateFormat FechaAct = new SimpleDateFormat("dd/MM/yyyy");  
+        SimpleDateFormat FechaAct = new SimpleDateFormat();  
         return FechaAct.format(fecha);
     }
     public void cargarTabla(){
@@ -312,12 +314,6 @@ public class frmEvento extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtLugar)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBienvenidaLayout.createSequentialGroup()
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(114, 114, 114)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
                             .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                                 .addGroup(pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +324,13 @@ public class frmEvento extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(txtHoraF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlBienvenidaLayout.createSequentialGroup()
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCapacidad))))
                     .addComponent(jScrollPane1))
                 .addGap(95, 95, 95)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -588,7 +590,8 @@ public class frmEvento extends javax.swing.JFrame {
 
         try {
             st.actualizarevento();
-            JOptionPane.showMessageDialog(null, "El evento se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Los datos se han acualizado correctamente","FAY-QR", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El evento se ha actualizado correctamente.","WARNINESSAGE", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }

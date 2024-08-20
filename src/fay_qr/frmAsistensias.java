@@ -4,7 +4,13 @@
  */
 package fay_qr;
 
+import clases.Alumnos;
+import clases.Asistencia;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,9 +30,46 @@ public class frmAsistensias extends javax.swing.JFrame {
         //poner la ventana en el centro
         this.setLocationRelativeTo(null);
         
-        
+        cargarTabla();
         
     }
+    Asistencia st=new Asistencia();
+    DefaultTableModel modelo= new DefaultTableModel();
+    
+    public void cargarTabla(){
+          try {
+            tblasistencia.setModel(modelo);
+            ResultSet rs = null;
+            rs = st.consultarasistenciaRS();
+            ResultSetMetaData rsMd = (ResultSetMetaData) rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+           
+            // SE AGREAN LOS NOMBRES DE COLUMNAS O ENCABEZADOS
+          
+            modelo.addColumn("NOMBRE_COMPLETO");
+            modelo.addColumn("EVENTO");
+            modelo.addColumn("FECHA");
+           
+            //SE DEFINE EL ANCHO DE CADA COLUMNA
+            int[] anchos = {100, 100,70};
+           
+            //ESTE FOR ASIGNA EL ANCHO A CADA COLUMNA
+            for (int i = 0; i < tblasistencia.getColumnCount(); i++) {
+                tblasistencia.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+
+            while (rs.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +84,7 @@ public class frmAsistensias extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblasistencia = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnAlumno = new javax.swing.JMenu();
         mnEvento = new javax.swing.JMenu();
@@ -79,7 +122,7 @@ public class frmAsistensias extends javax.swing.JFrame {
                 .addContainerGap(163, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblasistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -90,16 +133,16 @@ public class frmAsistensias extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblasistencia);
 
         javax.swing.GroupLayout pnlBienvenidaLayout = new javax.swing.GroupLayout(pnlBienvenida);
         pnlBienvenida.setLayout(pnlBienvenidaLayout);
         pnlBienvenidaLayout.setHorizontalGroup(
             pnlBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBienvenidaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -110,7 +153,7 @@ public class frmAsistensias extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlBienvenidaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -304,7 +347,6 @@ public class frmAsistensias extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JMenu mnAcercade;
     private javax.swing.JMenu mnAlumno;
@@ -313,5 +355,6 @@ public class frmAsistensias extends javax.swing.JFrame {
     private javax.swing.JMenu mnOrganizador;
     private javax.swing.JMenu mnSalir;
     private javax.swing.JPanel pnlBienvenida;
+    private javax.swing.JTable tblasistencia;
     // End of variables declaration//GEN-END:variables
 }
