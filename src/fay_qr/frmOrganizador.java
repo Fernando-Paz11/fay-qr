@@ -423,13 +423,13 @@ public class frmOrganizador extends javax.swing.JFrame {
         }
 
         // Verificar que los campos tengan el formato correcto
-        if (!txtnombre.getText().matches("[a-zA-Z]+")) {
+        if (!txtnombre.getText().matches("[a-zA-Z ]+")) {
             JOptionPane.showMessageDialog(null, "El campo 'Nombre' solo debe contener letras");
             txtnombre.requestFocus();
             return;
         }
 
-        if (!txtpuesto.getText().matches("[a-zA-Z]+")) {
+        if (!txtpuesto.getText().matches("[a-zA-Z ]+")) {
             JOptionPane.showMessageDialog(null, "El campo 'Puesto' solo debe contener letras");
             txtpuesto.requestFocus();
             return;

@@ -43,7 +43,8 @@ public class Alumnos {
         this.nombre_completo="";
         this.telefono="";
         this.correo="";
-        this.carrera="";     
+        this.carrera="";
+        this.foto=null;
     }
    
     //Constrluctor que recibe parametros
@@ -122,20 +123,32 @@ public class Alumnos {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+    
+    public static String bytesToHexString(byte[] bytes) {
+    StringBuilder hexString = new StringBuilder();
+    for (byte b : bytes) {
+        String hex = Integer.toHexString(0xFF & b);
+        if (hex.length() == 1) {
+            hexString.append('0');
+        }
+        hexString.append(hex);
+        }
+        return hexString.toString();
+    }
    
     //METODO INSERTAR
-    public boolean insertarAlumno() throws SQLException{
+   public boolean insertarAlumno() throws SQLException{
         String query;
         boolean respuesta=false;
         conBD.conectar();
         Statement sql=conBD.smtSQL();
+        System.out.println(getFoto());
         query = "INSERT INTO alumno (matricula, nombre_completo, correo, telefono, carrera, foto) "
-           + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"', '"+getFoto()+"');";
+           + "VALUES ('"+getMatricula()+"', '"+ getNombreCompleto()+"', '"+getCorreo()+"', '"+getTelefono() +"', '"+getCarrera()+"', X'"+bytesToHexString(getFoto())+"');";
         System.out.println(query);
         //EJECUTAR LA CONSULTA
         if (sql.executeUpdate(query)>0) {
             respuesta= true;
-            System.out.println(query);
         }
         conBD.desconectar();
         return respuesta;

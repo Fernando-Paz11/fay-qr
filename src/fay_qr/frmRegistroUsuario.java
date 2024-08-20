@@ -318,7 +318,7 @@ public class frmRegistroUsuario extends javax.swing.JFrame {
         }
 
         // Verificar que los campos tengan el formato correcto
-        if (!txtnombrecompleto.getText().matches("[a-zA-Z]+")) {
+        if (!txtnombrecompleto.getText().matches("[a-zA-Z ]+")) {
             JOptionPane.showMessageDialog(null, "El campo 'Nombre Completo' solo debe contener letras");
             txtnombrecompleto.requestFocus();
             return;

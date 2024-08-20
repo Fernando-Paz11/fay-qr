@@ -608,7 +608,22 @@ public class frmEvento extends javax.swing.JFrame {
         txtLugar.setName("Lugar");
         txtCapacidad.setName("Capacidad");
         
-
+        // Verificar que los campos tengan el formato correcto
+        if (!txtnombre.getText().matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' solo debe contener letras y espacios");
+            txtnombre.requestFocus();
+            return;
+        
+        }
+        
+        // Verificar que los campos tengan el formato correcto
+        if (!txtLugar.getText().matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(null, "El campo 'Lugar' solo debe contener letras");
+            txtnombre.requestFocus();
+            return;
+        
+        }
+        
         // Validar hora inicial
         String horaInicial = txtHorai.getText();
         if (!horaInicial.matches("\\d{2}:\\d{2}")) {
